@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terço dos Homens Eunápolis</title>
+    <style>
+        /* Estilo geral */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #000, #444); /* Gradiente de fundo */
+            color: #fff; /* Texto branco */
+            text-align: center;
+        }
+
+        /* Cabeçalho */
+        header {
+            background: #222; /* Fundo preto claro para o header/banner */
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00; /* Cor de destaque ao passar o mouse */
+        }
+
+        /* Banner */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background-image: url('img/Logo paróquia Santo Antônio marrom e branco_20250211_213210_0000.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ebe4e4;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Animação de boas-vindas */
+        #texto-bemvindo {
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        /* Animação da passagem bíblica */
+        #texto-passagem {
+            opacity: 0;
+            animation: fadeInPassagem 3s ease-out 2s forwards; /* Adicionado delay de 2s */
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInPassagem {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Conteúdo principal */
+        main {
+            padding: 20px;
+        }
+
+        /* Seção de passagens bíblicas */
+        #passagens {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        /* Galeria de imagens */
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .galeria img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 22px;
+            transition: transform 0.3s ease; /* Efeito de transição mais suave */
+            cursor: pointer;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.5); /* Sombra ao passar o mouse */
+        }
+
+        /* Modal para imagem ampliada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px; /* Bordas arredondadas para a imagem ampliada */
+        }
+
+        /* Estilo do botão de fechar o modal */
+        #fechar-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ffcc00; /* Cor de destaque para o botão */
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        #fechar-modal:hover {
+            background: #e6b800; /* Cor ao passar o mouse */
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #333;
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Terço dos Homens Paróquia Santo Antonio</h1>
+        <nav>
+            <ul>
+                <li><a href="https://hvhfdd.github.io/tre-o-dos-homens-shop/">Loja</a></li>
+                <li><a href="#galeria">Galeria de Fotos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <div class="banner" id="bemvindo">
+        <span id="texto-bemvindo">Bem-vindo ao Terço dos Homens Gusmão!</span>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <!-- Passagens Bíblicas -->
+        <section id="passagens">
+            <h2>Passagens Bíblicas</h2>
+            <p id="texto-passagem">Onde não há visão, o povo perece. - Provérbios 29:18</p>
+        </section>
+        <h3><p>Nossos encontros são todas as segundas-feiras às 19h, esperamos você lá! :)</p></h3>
+
+        <!-- Galeria -->
+        <section id="galeria">
+            <h2>Galeria</h2>
+            <div class="galeria">
+                <!-- As imagens serão inseridas dinamicamente pelo JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para imagem ampliada -->
+    <div id="modal" class="modal">
+        <img id="img-ampliada" src="" alt="Imagem Ampliada">
+        <button id="fechar-modal">Fechar</button>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2025 Terço dos Homens Eunápolis</p>
+    </footer>
+
+    <script>
+        // Lista de passagens bíblicas
+        const passagens = [
+            "Onde não há visão, o povo perece. - Provérbios 29:18",
+            "O Senhor é o meu pastor; nada me faltará. - Salmo 23:1",
+            "Tudo posso naquele que me fortalece. - Filipenses 4:13",
+            "Eu sou o caminho, a verdade e a vida. - João 14:6",
+            "Não andeis ansiosos por coisa alguma. - Filipenses 4:6",
+            "Porque Deus amou o mundo de tal maneira que deu seu Filho unigênito. - João 3:16",
+            "Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará. - Salmo 91:1",
+            "Deus é amor. - 1 João 4:8",
+            "Bem-aventurados os misericordiosos, porque alcançarão misericórdia. - Mateus 5:7",
+            "O Senhor é a minha luz e a minha salvação; a quem temerei? - Salmo 27:1"
+        ];
+
+        // Lista de 66 imagens
+        const imagens = [
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto1.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto2.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto3.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto4.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto5.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto6.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto7.jpg",
+            " https://hvhfdd.github.io/tre-o-dos-homens/img/foto8.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto9.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto10.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto11.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto12.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto13.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto14.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto15.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto16.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto17.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto18.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto19.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto20.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto21.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto22.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto23.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto24.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto25.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto26.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto27.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto28.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto29.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto30.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto31.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto32.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto33.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto34.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto35.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto36.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto37.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto38.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto39.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto40.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto41.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto42.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto43.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto44.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto45.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto46.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto47.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto48.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto49.jpg",
+            "https://hvhfdd.github.io/tre-o-dos-homens/img/foto50.jpg"
+        ];
+
+        // Função para exibir passagens bíblicas de forma aleatória
+        function exibirPassagemAleatoria() {
+            const passagemAleatoria = passagens [Math.floor(Math.random() * passagens.length)];
+            document.getElementById("texto-passagem").innerText = passagemAleatoria;
+        }
+
+        // Função para preencher a galeria de imagens
+        function carregarGaleria() {
+            const galeria = document.querySelector('.galeria');
+            imagens.forEach(imagem => {
+                const img = document.createElement('img');
+                img.src = imagem;
+                img.alt = 'Imagem do Terço dos Homens';
+                img.onclick = () => mostrarImagemAmpliada(imagem);
+                galeria.appendChild(img);
+            });
+        }
+
+        // Função para mostrar a imagem ampliada
+        function mostrarImagemAmpliada(src) {
+            const modal = document.getElementById('modal');
+            const imgAmpliada = document.getElementById('img-ampliada');
+            imgAmpliada.src = src;
+            modal.style.display = 'flex';
+        }
+
+        // Função para fechar o modal
+        document.getElementById('fechar-modal').onclick = function () {
+            document.getElementById('modal').style.display = 'none';
+        };
+
+        // Carregar a galeria de imagens ao carregar a página
+        window.onload = function () {
+            carregarGaleria();
+            setInterval(exibirPassagemAleatoria, 5000); // Exibir uma nova passagem a cada 5 segundos
+            document.getElementById("texto-bemvindo").style.opacity = 1;
+        };
+    </script>
+</body>
+</html>

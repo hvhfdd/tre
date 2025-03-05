@@ -225,7 +225,7 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
 
 
 
-    <audio id="player" autoplay hidden>
+<audio id="player" autoplay muted hidden>
     <source src="img/videoplayback.m4a" type="audio/mp4">
     Seu navegador não suporta o elemento de áudio.
 </audio>
@@ -233,9 +233,18 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         let audio = document.getElementById("player");
-        audio.volume = 0.2; // Define o volume para 20%
+
+        // Define volume baixo e inicia mudo
+        audio.volume = 0.2;
+
+        // Espera 1 segundo e ativa o áudio
+        setTimeout(() => {
+            audio.muted = false;
+            audio.play().catch(error => console.log("Autoplay bloqueado:", error));
+        }, 1000);
     });
 </script>
+
 
     <!-- Modal para imagem ampliada -->
     <div id="modal" class="modal">

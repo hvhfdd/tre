@@ -232,23 +232,14 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
         audio.volume = 1.0;
         audio.muted = true;
 
-        // Espera 3 segundos antes de ativar o som e garantir que o áudio toque
+        // Espera 3 segundos antes de ativar o som e reiniciar automaticamente
         setTimeout(() => {
             audio.muted = false;
-            let playPromise = audio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Autoplay bloqueado, esperando interação...");
-                    document.body.addEventListener("click", () => {
-                        audio.play();
-                    }, { once: true });
-                });
-            }
+            audio.currentTime = 0; // Reinicia o áudio do começo
+            audio.play(); // Toca o áudio novamente
         }, 3000);
     });
 </script>
-
 
 
     <!-- Modal para imagem ampliada -->

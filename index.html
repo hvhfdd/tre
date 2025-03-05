@@ -218,7 +218,6 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
         <p> quem visitou site</p>                  
     <a href="https://info.flagcounter.com/W8DY"><img src="https://s05.flagcounter.com/count2/W8DY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_Visitantes+que+viram+nosso+site/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
     </main>
-<script type="text/javascript" src="https://www.usersonline.org/uo-83xDwZaC631D3810-14-0.js"></script><br><a href="https://www.usersonline.org/" target="_blank"><img src="https://www.usersonline.org/selo/selo-uo.gif" alt="user online" border="0"></a> 
 <audio id="player" controls autoplay muted>
     <source src="img/videoplayback.m4a" type="audio/mp4">
     <source src="img/videoplayback.mp3" type="audio/mpeg">
@@ -233,10 +232,20 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
         audio.volume = 1.0;
         audio.muted = true;
 
-        // Espera 20 segundos antes de tirar o mudo
+        // Espera 3 segundos antes de ativar o som e garantir que o áudio toque
         setTimeout(() => {
             audio.muted = false;
-        }, 20000);
+            let playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay bloqueado, esperando interação...");
+                    document.body.addEventListener("click", () => {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        }, 3000);
     });
 </script>
 

@@ -220,13 +220,9 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
     </main>
 <script type="text/javascript" src="https://www.usersonline.org/uo-83xDwZaC631D3810-14-0.js"></script><br><a href="https://www.usersonline.org/" target="_blank"><img src="https://www.usersonline.org/selo/selo-uo.gif" alt="user online" border="0"></a> 
 
-
-
-
-
-
 <audio id="player" autoplay muted hidden>
     <source src="img/videoplayback.m4a" type="audio/mp4">
+    <source src="img/videoplayback.mp3" type="audio/mpeg">
     Seu navegador não suporta o elemento de áudio.
 </audio>
 
@@ -234,16 +230,27 @@ A fundação do Movimento Católico Terço dos Homens é um testemunho da força
     document.addEventListener("DOMContentLoaded", function () {
         let audio = document.getElementById("player");
 
-        // Define volume baixo e inicia mudo
-        audio.volume = 0.9;
+        // Define volume no máximo e inicia mudo
+        audio.volume = 1.0;
 
-        // Espera 1 segundo e ativa o áudio
+        // Tentar reproduzir após um curto atraso
         setTimeout(() => {
             audio.muted = false;
-            audio.play().catch(error => console.log("Autoplay bloqueado:", error));
-        }, 3000);
+            let playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay bloqueado, tentando novamente...");
+                    document.body.addEventListener("click", () => {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        }, 1000);
     });
 </script>
+
+
 
 
     <!-- Modal para imagem ampliada -->

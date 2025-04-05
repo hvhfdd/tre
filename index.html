@@ -6,30 +6,14 @@
     <meta name="description" content="Site oficial do Terço dos Homens de Eunápolis - Encontros todas as segundas-feiras às 19h">
     <meta name="keywords" content="Terço dos Homens, Eunápolis, Paróquia Santo Antônio, Dr. Gusmão, Movimento Católico">
     <meta name="author" content="Terço dos Homens Eunápolis">
-    <meta name="robots" content="index, follow">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     <!-- Favicon -->
     <link rel="icon" href="https://paroquiasantateresinha.com.br/wp-content/uploads/2022/10/LOGO-png.webp" type="image/webp">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://seusite.com/">
-    <meta property="og:title" content="Terço dos Homens Paróquia Santo Antonio Eunápolis">
-    <meta property="og:description" content="Encontros todas as segundas-feiras às 19h - Venha rezar conosco!">
-    <meta property="og:image" content="https://paroquiasantateresinha.com.br/wp-content/uploads/2022/10/LOGO-png.webp">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://seusite.com/">
-    <meta property="twitter:title" content="Terço dos Homens Paróquia Santo Antonio Eunápolis">
-    <meta property="twitter:description" content="Encontros todas as segundas-feiras às 19h - Venha rezar conosco!">
-    <meta property="twitter:image" content="https://paroquiasantateresinha.com.br/wp-content/uploads/2022/10/LOGO-png.webp">
-
-    <title>Terço dos Homens Eunápolis - Paróquia Santo Antônio</title>
-    
-    <!-- Font Awesome para ícones -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <title>Terço dos Homens - Paróquia Santo Antônio Eunápolis</title>
     
     <style>
         :root {
@@ -57,7 +41,7 @@
             overflow-x: hidden;
         }
 
-        /* Header Styles */
+        /* Header */
         header {
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             padding: 1rem 2rem;
@@ -85,7 +69,7 @@
             font-weight: 700;
         }
 
-        /* Navigation Styles */
+        /* Navigation */
         nav ul {
             display: flex;
             list-style: none;
@@ -113,7 +97,7 @@
             color: var(--secondary-color);
         }
 
-        /* Mobile Menu Button */
+        /* Mobile Menu */
         .menu-btn {
             display: none;
             cursor: pointer;
@@ -121,7 +105,7 @@
             color: var(--text-color);
         }
 
-        /* Banner Styles */
+        /* Banner */
         .banner {
             position: relative;
             width: 100%;
@@ -170,7 +154,7 @@
             box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6);
         }
 
-        /* Main Content Styles */
+        /* Main Content */
         main {
             padding: 3rem 1rem;
             max-width: 1200px;
@@ -198,7 +182,7 @@
             margin: 0.5rem auto;
         }
 
-        /* Bible Passage Styles */
+        /* Bible Passage */
         .passage-container {
             background: var(--light-bg);
             border-radius: 10px;
@@ -225,7 +209,7 @@
             color: var(--secondary-color);
         }
 
-        /* About Us Styles */
+        /* About Us */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -255,7 +239,46 @@
             transform: scale(1.05);
         }
 
-        /* Prayer Form Styles */
+        /* Quick Links */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .quick-link-item {
+            text-align: center;
+            background: var(--light-bg);
+            padding: 1.5rem 1rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .quick-link-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .quick-link-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+            border: 2px solid var(--secondary-color);
+            padding: 5px;
+        }
+
+        .quick-link-item p {
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* Prayer Form */
         .prayer-form {
             background: var(--light-bg);
             border-radius: 10px;
@@ -319,44 +342,7 @@
             box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6);
         }
 
-        /* Quick Links Styles */
-        .quick-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .quick-link-item {
-            text-align: center;
-            background: var(--light-bg);
-            padding: 1.5rem 1rem;
-            border-radius: 10px;
-            transition: var(--transition);
-            box-shadow: var(--box-shadow);
-        }
-
-        .quick-link-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .quick-link-item img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 1rem;
-            border-radius: 50%;
-            border: 2px solid var(--secondary-color);
-            padding: 5px;
-        }
-
-        .quick-link-item p {
-            font-weight: 500;
-            margin-top: 0.5rem;
-        }
-
-        /* Footer Styles */
+        /* Footer */
         footer {
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             padding: 2rem 1rem;
@@ -418,7 +404,7 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        /* Back to Top Button */
+        /* Back to Top */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -450,55 +436,7 @@
             transform: translateY(-3px);
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1001;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .modal-content img {
-            max-width: 100%;
-            max-height: 80vh;
-            border-radius: 10px;
-            display: block;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: #fff;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            color: var(--secondary-color);
-        }
-
-        /* Audio Player Styles */
+        /* Audio Player */
         .audio-container {
             position: fixed;
             bottom: 0;
@@ -509,11 +447,23 @@
             z-index: 1000;
             display: flex;
             justify-content: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .audio-container.visible {
+            transform: translateY(0);
         }
 
         audio {
             width: 100%;
             max-width: 500px;
+        }
+
+        /* Visitor Counter */
+        .visitor-counter {
+            text-align: center;
+            margin: 2rem 0;
         }
 
         /* Animations */
@@ -641,6 +591,9 @@
                 <li><a href="https://hvhfdd.github.io/tre-oflix"><i class="fas fa-film"></i> Filmes</a></li>
                 <li><a href="https://hvhfdd.github.io/galeria/"><i class="fas fa-images"></i> Galeria</a></li>
                 <li><a href="https://hvhfdd.github.io/litogia/"><i class="fas fa-book-bible"></i> Liturgia</a></li>
+                <li><a href="https://radio.cancaonova.com/am-cachoeira-paulista/"><i class="fas fa-radio"></i> Rádio</a></li>
+                <li><a href="https://hvhfdd.github.io/ebook/"><i class="fas fa-cross"></i> Quaresma</a></li>
+                <li><a href="https://hvhfdd.github.io/teste-123/"><i class="fas fa-hourglass-half"></i> Em Breve</a></li>
             </ul>
         </nav>
     </header>
@@ -656,7 +609,7 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Bible Passage Section -->
+        <!-- Bible Passage -->
         <section>
             <h2 class="section-title">Palavra do Dia</h2>
             <div class="passage-container">
@@ -665,21 +618,41 @@
             </div>
         </section>
 
-        <!-- Quick Links Section -->
+        <!-- Quick Links -->
         <section>
             <h2 class="section-title">Acessos Rápidos</h2>
             <div class="quick-links">
+                <a href="https://hvhfdd.github.io/calendario/" class="quick-link-item" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png" alt="Calendário">
+                    <p>Calendário 2025</p>
+                </a>
+                <a href="https://hvhfdd.github.io/ora-otre-o/" class="quick-link-item" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/808/808439.png" alt="Oração">
+                    <p>Oração</p>
+                </a>
+                <a href="https://domusweb.site/" class="quick-link-item" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081985.png" alt="Loja">
+                    <p>Loja</p>
+                </a>
+                <a href="https://hvhfdd.github.io/tre-oflix" class="quick-link-item" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4213/4213628.png" alt="Filmes">
+                    <p>Filmes</p>
+                </a>
+                <a href="https://hvhfdd.github.io/galeria/" class="quick-link-item" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3342/3342137.png" alt="Galeria">
+                    <p>Galeria</p>
+                </a>
                 <a href="https://hvhfdd.github.io/litogia/" class="quick-link-item" target="_blank">
                     <img src="https://paroquiasantateresinha.com.br/wp-content/uploads/2022/10/LOGO-png.webp" alt="Liturgia">
-                    <p>Liturgia Diária</p>
+                    <p>Liturgia</p>
+                </a>
+                <a href="https://radio.cancaonova.com/am-cachoeira-paulista/" class="quick-link-item" target="_blank">
+                    <img src="https://yt3.googleusercontent.com/ytc/APkrFKYcYswt_UhD7D0j6ddiQz6Gb8QmS9L7B9QH2W6J=s900-c-k-c0x00ffffff-no-rj" alt="Rádio">
+                    <p>Rádio</p>
                 </a>
                 <a href="https://hvhfdd.github.io/ebook/" class="quick-link-item" target="_blank">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1fI18-RJII8mrK9LYCITxOOwGs04tlVWq6q9zbwPGdd05ihSX9nPsaeTrDvymiCuSBgs&usqp=CAU" alt="Quaresma">
                     <p>Quaresma 2025</p>
-                </a>
-                <a href="https://radio.cancaonova.com/am-cachoeira-paulista/" class="quick-link-item" target="_blank">
-                    <img src="https://yt3.googleusercontent.com/ytc/APkrFKYcYswt_UhD7D0j6ddiQz6Gb8QmS9L7B9QH2W6J=s900-c-k-c0x00ffffff-no-rj" alt="Rádio">
-                    <p>Rádio Canção Nova</p>
                 </a>
                 <a href="https://hvhfdd.github.io/teste-123/" class="quick-link-item" target="_blank">
                     <img src="https://cdn-icons-png.flaticon.com/512/3753/3753157.png" alt="Em Breve">
@@ -688,7 +661,7 @@
             </div>
         </section>
 
-        <!-- About Us Section -->
+        <!-- About Us -->
         <section>
             <h2 class="section-title">Quem Somos Nós</h2>
             <div class="about-content">
@@ -703,7 +676,7 @@
             </div>
         </section>
 
-        <!-- Prayer Form Section -->
+        <!-- Prayer Form -->
         <section id="prayer-form">
             <h2 class="section-title">Envie sua Intenção de Oração</h2>
             <form class="prayer-form" id="prayerForm">
@@ -724,12 +697,12 @@
         </section>
 
         <!-- Visitor Counter -->
-        <section style="text-align: center; margin-top: 3rem;">
+        <div class="visitor-counter">
             <h3>Visitantes do Site</h3>
             <a href="https://info.flagcounter.com/W8DY" target="_blank">
                 <img src="https://s05.flagcounter.com/count2/W8DY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_Visitantes+que+viram+nosso+site/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0">
             </a>
-        </section>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -770,20 +743,12 @@
     </div>
 
     <!-- Audio Player -->
-    <div class="audio-container">
+    <div class="audio-container" id="audioPlayer">
         <audio id="player" controls>
             <source src="img/videoplayback.m4a" type="audio/mp4">
             <source src="img/videoplayback.mp3" type="audio/mpeg">
             Seu navegador não suporta o elemento de áudio.
         </audio>
-    </div>
-
-    <!-- Modal for Images -->
-    <div class="modal" id="imageModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <img id="modalImage" src="" alt="Imagem Ampliada">
-        </div>
     </div>
 
     <script>
@@ -873,37 +838,18 @@
         // Audio Player
         document.addEventListener("DOMContentLoaded", function() {
             const audio = document.getElementById("player");
-            audio.volume = 0.5; // Set volume to 50%
+            const audioContainer = document.getElementById("audioPlayer");
             
-            // Unmute after 3 seconds
+            // Set volume to 50% and mute initially
+            audio.volume = 0.5;
+            audio.muted = true;
+            
+            // Show and unmute after 9 seconds
             setTimeout(() => {
+                audioContainer.classList.add('visible');
                 audio.muted = false;
-            }, 3000);
-        });
-
-        // Image Modal
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImage');
-        const closeModal = document.querySelector('.close-modal');
-        
-        // Open modal when clicking on any image in quick links
-        document.querySelectorAll('.quick-link-item img').forEach(img => {
-            img.addEventListener('click', () => {
-                modal.classList.add('active');
-                modalImg.src = img.src;
-            });
-        });
-        
-        // Close modal
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-        
-        // Close modal when clicking outside the image
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
+                audio.play().catch(e => console.log("Autoplay prevented:", e));
+            }, 9000);
         });
 
         // Smooth scrolling for anchor links

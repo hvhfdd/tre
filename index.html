@@ -35,6 +35,22 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
+            background-image: url('https://images.unsplash.com/photo-1544830289-4230a7a69dde?q=80&w=2070');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: -1;
         }
 
         /* Header */
@@ -76,27 +92,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-        }
-
-        .profile-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .profile-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .profile-btn i {
-            font-size: 1.1rem;
-            color: var(--white);
         }
 
         .menu-toggle {
@@ -149,43 +144,6 @@
             right: 0;
         }
 
-        .nav-header {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--medium-gray);
-        }
-
-        .nav-profile {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            overflow: hidden;
-        }
-
-        .nav-profile img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .nav-user-info h3 {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            margin-bottom: 3px;
-        }
-
-        .nav-user-info p {
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
         nav ul {
             list-style: none;
         }
@@ -231,16 +189,18 @@
             width: 100%;
             height: 220px;
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://santuariodenazare.com.br/wp-content/uploads/2020/04/santo-terco.jpg') center/cover;
+                        url('https://images.unsplash.com/photo-1581578021250-6b8b3b0b3b0b?q=80&w=2070') center/cover;
             border-radius: var(--border-radius);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             padding: 0 30px;
             color: var(--white);
             margin-bottom: 30px;
             overflow: hidden;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .welcome-banner h1 {
@@ -254,7 +214,7 @@
         .welcome-banner p {
             font-size: 1rem;
             opacity: 0.9;
-            max-width: 80%;
+            max-width: 90%;
         }
 
         /* Quick Actions */
@@ -349,6 +309,7 @@
             margin: 40px 0 20px;
             position: relative;
             padding-left: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .section-title::before {
@@ -371,6 +332,7 @@
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .bible-card::before {
@@ -428,6 +390,7 @@
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .prayer-card::before {
@@ -537,6 +500,88 @@
             opacity: 1;
         }
 
+        /* Loja Section */
+        .store-section {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .store-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .store-section h3 i {
+            color: var(--secondary-color);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 150px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .buy-btn {
+            display: block;
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .buy-btn:hover {
+            background: #0d3a6d;
+            transform: translateY(-2px);
+        }
+
         /* About Section */
         .about-section {
             background: var(--white);
@@ -544,6 +589,7 @@
             padding: var(--card-padding);
             margin-bottom: 30px;
             box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .about-section h3 {
@@ -632,6 +678,8 @@
             text-align: center;
             padding: 40px 25px;
             margin-top: 40px;
+            border-top-left-radius: var(--border-radius);
+            border-top-right-radius: var(--border-radius);
         }
 
         .footer-logo {
@@ -735,6 +783,10 @@
                 grid-template-columns: repeat(4, 1fr);
             }
 
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
             .bottom-nav {
                 display: none;
             }
@@ -745,13 +797,10 @@
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <img src="https://tercoonline.com.br/wp-content/uploads/2020/04/terco-online-logo.png" alt="Logo Terço dos Homens" class="logo-img">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Rosary.svg/1200px-Rosary.svg.png" alt="Logo Terço dos Homens" class="logo-img">
             <div class="logo-text">Terço dos Homens</div>
         </div>
         <div class="header-actions">
-            <div class="profile-btn" id="profile-btn">
-                <i class="fas fa-user"></i>
-            </div>
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
@@ -762,25 +811,15 @@
 
     <!-- Navigation -->
     <nav id="nav-menu">
-        <div class="nav-header">
-            <div class="nav-profile">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Perfil do Usuário">
-            </div>
-            <div class="nav-user-info">
-                <h3>João da Silva</h3>
-                <p>Membro desde 2020</p>
-            </div>
-        </div>
         <ul>
             <li><a href="#"><i class="fas fa-home"></i> Início</a></li>
             <li><a href="#"><i class="fas fa-praying-hands"></i> Orações</a></li>
             <li><a href="#"><i class="fas fa-calendar-check"></i> Agenda</a></li>
             <li><a href="#"><i class="fas fa-rosary"></i> Mistérios</a></li>
             <li><a href="#"><i class="fas fa-book-bible"></i> Liturgia Diária</a></li>
+            <li><a href="#loja"><i class="fas fa-store"></i> Loja</a></li>
             <li><a href="#"><i class="fas fa-photo-video"></i> Galeria</a></li>
-            <li><a href="#"><i class="fas fa-church"></i> Paróquias</a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> Configurações</a></li>
-            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+            <li><a href="#"><i class="fas fa-info-circle"></i> Sobre</a></li>
         </ul>
     </nav>
 
@@ -813,10 +852,10 @@
                 <button class="action-btn">Ver Agenda</button>
             </div>
             <div class="action-card">
-                <i class="fas fa-book-bible"></i>
-                <h3>Liturgia</h3>
-                <p>Leituras do dia e reflexões</p>
-                <button class="action-btn">Acessar</button>
+                <i class="fas fa-store"></i>
+                <h3>Loja</h3>
+                <p>Produtos religiosos e artigos</p>
+                <button class="action-btn" onclick="window.location.href='#loja'">Visitar Loja</button>
             </div>
         </div>
 
@@ -847,6 +886,14 @@
                     <i class="fas fa-paper-plane"></i> Enviar Intenção
                 </button>
             </form>
+        </div>
+
+      
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://domusweb.site" class="btn" target="_blank">
+                    <i class="fas fa-store"></i> Visitar Loja
+                </a>
+            </div>
         </div>
 
         <!-- External Links -->
@@ -893,12 +940,16 @@
                 pelas famílias e por todas as necessidades da comunidade. Já somos mais de 500 homens 
                 comprometidos com a fé e a transformação social através da oração.
             </p>
+            <p>
+                Venha fazer parte deste movimento de fé e transformação. Traga seu terço e seu coração, 
+                e juntos vamos construir um mundo melhor através da oração.
+            </p>
         </div>
     </main>
 
     <!-- Footer -->
     <footer>
-        <img src="https://tercoonline.com.br/wp-content/uploads/2020/04/terco-online-logo.png" alt="Logo Terço dos Homens" class="footer-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Rosary.svg/1200px-Rosary.svg.png" alt="Logo Terço dos Homens" class="footer-logo">
         <p class="footer-text">
             Movimento Terço dos Homens - Paróquia Santo Antônio<br>
             Unidos em oração pela paz e pela família
@@ -923,13 +974,13 @@
             <i class="fas fa-praying-hands"></i>
             <span>Orações</span>
         </a>
-        <a href="#">
-            <i class="fas fa-calendar-check"></i>
-            <span>Agenda</span>
+        <a href="#loja">
+            <i class="fas fa-store"></i>
+            <span>Loja</span>
         </a>
         <a href="#">
-            <i class="fas fa-user"></i>
-            <span>Perfil</span>
+            <i class="fas fa-info-circle"></i>
+            <span>Sobre</span>
         </a>
     </div>
 
@@ -937,7 +988,6 @@
         // Mobile Menu Toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
-        const profileBtn = document.getElementById('profile-btn');
 
         mobileMenu.addEventListener('click', function() {
             this.classList.toggle('active');
@@ -948,10 +998,6 @@
             } else {
                 document.body.style.overflow = 'auto';
             }
-        });
-
-        profileBtn.addEventListener('click', function() {
-            alert("Perfil do usuário:\n\nNome: João da Silva\nEmail: joao@example.com\nMembro desde: 15/03/2020");
         });
 
         // Close menu when clicking on a link
@@ -1023,10 +1069,10 @@
             }
         });
 
-        // Simulate loading
+        // Page animations
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
-                const elements = document.querySelectorAll('.welcome-banner, .quick-actions, .section-title, .bible-card, .prayer-card, .external-links, .about-section');
+                const elements = document.querySelectorAll('.welcome-banner, .quick-actions, .section-title, .bible-card, .prayer-card, .store-section, .external-links, .about-section');
                 elements.forEach((el, index) => {
                     setTimeout(() => {
                         el.style.opacity = '1';
@@ -1034,6 +1080,10 @@
                     }, index * 200);
                 });
             }, 300);
+            
+            // Initial animation for banner
+            document.querySelector('.welcome-banner').style.opacity = '1';
+            document.querySelector('.welcome-banner').style.transform = 'translateY(0)';
         });
     </script>
 </body>

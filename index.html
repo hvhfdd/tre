@@ -1,1769 +1,1040 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <meta name="description" content="Terço dos Homens da Paróquia Santo Antônio em Eunápolis - Movimento de evangelização e oração">
-   <meta name="keywords" content="Terço eunapolis, Eunapolis, Eunápolis, Terço dos Homens, Rosário">
-   <meta name="author" content="João">
-   <title>Terço dos Homens Eunápolis</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="manifest" href="manifest.json">
-   <style>
-       :root {
-           --primary-color: #1a237e;
-           --primary-dark: #0d1238;
-           --secondary-color: #ffc107;
-           --accent-color: #4fc3f7;
-           --light-blue: #e3f2fd;
-           --text-color: #ffffff;
-           --text-dark: #333333;
-           --gold-light: #ffecb3;
-           --gold-dark: #ffa000;
-           --bg-dark: #0d1238;
-           --bg-light: rgba(255, 255, 255, 0.1);
-           --iphone-notch: env(safe-area-inset-top);
-           --iphone-bottom: env(safe-area-inset-bottom);
-       }
-
-       * {
-           margin: 0;
-           padding: 0;
-           box-sizing: border-box;
-           -webkit-tap-highlight-color: transparent;
-       }
-
-       body {
-           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-           background: var(--primary-dark);
-           color: var(--text-color);
-           line-height: 1.7;
-           overflow-x: hidden;
-           background-image: 
-               radial-gradient(circle at 10% 20%, rgba(25, 50, 150, 0.3) 0%, transparent 20%),
-               radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.2) 0%, transparent 20%);
-           padding-top: var(--iphone-notch);
-           padding-bottom: calc(var(--iphone-bottom) + 60px); /* Espaço para a barra de navegação */
-       }
-
-       /* iPhone Notch Simulation */
-       .notch {
-           position: fixed;
-           top: 0;
-           left: 50%;
-           transform: translateX(-50%);
-           width: 40%;
-           max-width: 200px;
-           height: 30px;
-           background: #000;
-           border-bottom-left-radius: 15px;
-           border-bottom-right-radius: 15px;
-           z-index: 1100;
-           display: none;
-       }
-
-       /* Header Styles */
-       header {
-           background-color: var(--primary-color);
-           padding: 1rem 1rem calc(1rem + var(--iphone-notch));
-           position: fixed;
-           width: 100%;
-           top: var(--iphone-notch);
-           z-index: 1000;
-           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           transition: all 0.3s ease;
-       }
-
-       header.scrolled {
-           padding: 0.5rem 1rem calc(0.5rem + var(--iphone-notch));
-           background-color: rgba(26, 35, 126, 0.95);
-           backdrop-filter: blur(5px);
-       }
-
-       .logo-container {
-           display: flex;
-           align-items: center;
-           gap: 10px;
-       }
-
-       .logo-img {
-           height: 40px;
-           width: auto;
-           filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-       }
-
-       .logo-text {
-           font-size: 1.1rem;
-           font-weight: 700;
-           color: var(--text-color);
-           text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-       }
-
-       /* Hamburger Menu */
-       .menu-toggle {
-           display: flex;
-           flex-direction: column;
-           justify-content: space-between;
-           width: 30px;
-           height: 21px;
-           cursor: pointer;
-           z-index: 1100;
-           position: relative;
-       }
-
-       .menu-toggle span {
-           display: block;
-           height: 3px;
-           width: 100%;
-           background: var(--text-color);
-           border-radius: 3px;
-           transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-       }
-
-       .menu-toggle.active span:nth-child(1) {
-           transform: translateY(9px) rotate(45deg);
-       }
-
-       .menu-toggle.active span:nth-child(2) {
-           opacity: 0;
-           transform: translateX(-20px);
-       }
-
-       .menu-toggle.active span:nth-child(3) {
-           transform: translateY(-9px) rotate(-45deg);
-       }
-
-       /* Navigation */
-       nav {
-           position: fixed;
-           top: 0;
-           right: -100%;
-           width: 80%;
-           max-width: 300px;
-           height: 100vh;
-           background: var(--primary-dark);
-           padding: 80px 20px 30px;
-           transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-           box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
-           flex-direction: column;
-           justify-content: flex-start;
-           z-index: 900;
-       }
-
-       nav.active {
-           right: 0;
-       }
-
-       nav ul {
-           flex-direction: column;
-           width: 100%;
-           list-style: none;
-       }
-
-       nav ul li {
-           margin: 10px 0;
-           width: 100%;
-       }
-
-       nav ul li a {
-           color: var(--text-color);
-           text-decoration: none;
-           padding: 12px 15px;
-           border-radius: 8px;
-           transition: all 0.3s ease;
-           font-weight: 500;
-           display: flex;
-           align-items: center;
-           gap: 10px;
-           font-size: 0.95rem;
-           background: rgba(255,255,255,0.1);
-       }
-
-       nav ul li a i {
-           font-size: 1rem;
-           width: 20px;
-           text-align: center;
-       }
-
-       nav ul li a:hover {
-           background: var(--secondary-color);
-           color: var(--text-dark);
-           transform: translateY(-2px);
-       }
-
-       /* Language Selector */
-       .language-selector {
-           margin-top: 30px;
-           position: relative;
-           width: 100%;
-       }
-
-       .language-btn {
-           background: rgba(255,255,255,0.1);
-           border: none;
-           color: var(--text-color);
-           cursor: pointer;
-           display: flex;
-           align-items: center;
-           padding: 12px 15px;
-           border-radius: 8px;
-           transition: all 0.3s;
-           width: 100%;
-       }
-
-       .language-btn:hover {
-           background: var(--secondary-color);
-           color: var(--text-dark);
-       }
-
-       .language-btn img {
-           width: 20px;
-           margin-right: 10px;
-           border-radius: 2px;
-       }
-
-       .language-dropdown {
-           position: absolute;
-           right: 0;
-           top: 100%;
-           background: var(--primary-color);
-           border-radius: 8px;
-           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-           display: none;
-           width: 100%;
-           z-index: 1000;
-           overflow: hidden;
-           border: 1px solid rgba(255,255,255,0.1);
-       }
-
-       .language-dropdown.show {
-           display: block;
-           animation: fadeInUp 0.3s ease-out;
-       }
-
-       .language-dropdown a {
-           display: flex;
-           align-items: center;
-           padding: 12px 15px;
-           color: var(--text-color);
-           text-decoration: none;
-           transition: all 0.3s;
-           font-size: 0.9rem;
-           background: rgba(255,255,255,0.05);
-       }
-
-       .language-dropdown a:hover {
-           background: var(--secondary-color);
-           color: var(--text-dark);
-           padding-left: 20px;
-       }
-
-       .language-dropdown a img {
-           width: 20px;
-           margin-right: 10px;
-           border-radius: 2px;
-       }
-
-       /* Main Content */
-       main {
-           margin-top: calc(70px + var(--iphone-notch));
-           padding: 15px;
-       }
-
-       /* Banner */
-       .banner {
-           position: relative;
-           width: 100%;
-           height: 60vh;
-           min-height: 300px;
-           background-image: url('img/2b-Logo_THMR_Brasil_Azul2019.png');
-           background-size: cover;
-           background-position: center;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           justify-content: center;
-           color: var(--text-color);
-           text-align: center;
-           padding: 15px;
-           margin-bottom: 20px;
-           border-radius: 15px;
-           overflow: hidden;
-       }
-
-       .banner::before {
-           content: '';
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background: linear-gradient(135deg, rgba(26, 35, 126, 0.7) 0%, rgba(13, 18, 56, 0.9) 100%);
-       }
-
-       .banner-content {
-           position: relative;
-           z-index: 1;
-           width: 100%;
-           padding: 20px;
-           background: rgba(0, 0, 0, 0.4);
-           border-radius: 15px;
-           backdrop-filter: blur(5px);
-           border: 1px solid rgba(255,255,255,0.1);
-       }
-
-       .banner h1 {
-           font-size: 1.8rem;
-           margin-bottom: 15px;
-           text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-           animation: fadeInUp 1s ease-out;
-           color: var(--gold-light);
-           font-weight: 700;
-       }
-
-       .banner p {
-           font-size: 1rem;
-           margin-bottom: 20px;
-           animation: fadeInUp 1s ease-out 0.3s forwards;
-           opacity: 0;
-       }
-
-       /* Rosary Decoration */
-       .rosary-decoration {
-           position: absolute;
-           width: 100px;
-           height: 100px;
-           opacity: 0.2;
-           z-index: 0;
-       }
-
-       .rosary-1 {
-           top: 10%;
-           left: 10%;
-           animation: float 6s ease-in-out infinite;
-       }
-
-       .rosary-2 {
-           bottom: 10%;
-           right: 10%;
-           animation: float 8s ease-in-out infinite 2s;
-       }
-
-       /* Animations */
-       @keyframes fadeIn {
-           from { opacity: 0; }
-           to { opacity: 1; }
-       }
-
-       @keyframes fadeInUp {
-           from { opacity: 0; transform: translateY(30px); }
-           to { opacity: 1; transform: translateY(0); }
-       }
-
-       @keyframes float {
-           0% { transform: translateY(0) rotate(0deg); }
-           50% { transform: translateY(-20px) rotate(5deg); }
-           100% { transform: translateY(0) rotate(0deg); }
-       }
-
-       @keyframes pulse {
-           0% { transform: scale(1); }
-           50% { transform: scale(1.05); }
-           100% { transform: scale(1); }
-       }
-
-       /* Sections */
-       .section {
-           background: var(--bg-light);
-           border-radius: 15px;
-           padding: 20px;
-           margin-bottom: 20px;
-           box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-           backdrop-filter: blur(5px);
-           border: 1px solid rgba(255,255,255,0.1);
-           position: relative;
-           overflow: hidden;
-       }
-
-       .section::before {
-           content: '';
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 5px;
-           background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-       }
-
-       .section h2 {
-           color: var(--secondary-color);
-           margin-bottom: 20px;
-           font-size: 1.5rem;
-           position: relative;
-           padding-bottom: 10px;
-           display: flex;
-           align-items: center;
-           gap: 10px;
-       }
-
-       .section h2::after {
-           content: '';
-           position: absolute;
-           bottom: 0;
-           left: 0;
-           width: 60px;
-           height: 3px;
-           background: var(--accent-color);
-           border-radius: 3px;
-       }
-
-       .section h2 i {
-           font-size: 1.3rem;
-           color: var(--accent-color);
-       }
-
-       /* Bible Passage */
-       .bible-passage {
-           font-style: italic;
-           font-size: 1.1rem;
-           margin: 20px 0;
-           padding: 15px;
-           background: rgba(0, 0, 0, 0.3);
-           border-left: 4px solid var(--secondary-color);
-           border-radius: 0 8px 8px 0;
-           animation: fadeIn 1s ease-out;
-           position: relative;
-           font-weight: 500;
-       }
-
-       .bible-passage::before {
-           content: '"';
-           position: absolute;
-           top: 5px;
-           left: 5px;
-           font-size: 3rem;
-           color: rgba(255, 255, 255, 0.1);
-           font-family: serif;
-           line-height: 1;
-       }
-
-       .bible-reference {
-           display: block;
-           text-align: right;
-           margin-top: 10px;
-           font-style: normal;
-           font-size: 0.9rem;
-           color: var(--accent-color);
-       }
-
-       /* Quick Links */
-       .quick-links {
-           display: grid;
-           grid-template-columns: repeat(2, 1fr);
-           gap: 15px;
-           margin: 20px 0;
-       }
-
-       .quick-link {
-           background: var(--primary-color);
-           border-radius: 12px;
-           padding: 20px 10px;
-           text-align: center;
-           transition: all 0.4s ease;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-           position: relative;
-           overflow: hidden;
-           z-index: 1;
-       }
-
-       .quick-link::before {
-           content: '';
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background: linear-gradient(135deg, rgba(255,193,7,0.1) 0%, rgba(79,195,247,0.1) 100%);
-           z-index: -1;
-           opacity: 0;
-           transition: opacity 0.3s;
-       }
-
-       .quick-link:hover {
-           transform: translateY(-5px);
-           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-       }
-
-       .quick-link:hover::before {
-           opacity: 1;
-       }
-
-       .quick-link img {
-           width: 60px;
-           height: 60px;
-           object-fit: contain;
-           margin-bottom: 10px;
-           transition: transform 0.3s;
-           filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
-       }
-
-       .quick-link:hover img {
-           transform: scale(1.1) rotate(5deg);
-           animation: pulse 1.5s infinite;
-       }
-
-       .quick-link p {
-           font-weight: 600;
-           color: var(--text-color);
-           font-size: 0.95rem;
-           margin-top: 10px;
-       }
-
-       /* Prayer Form */
-       .prayer-form {
-           background: var(--bg-light);
-           border-radius: 15px;
-           padding: 20px;
-           margin: 20px 0;
-           position: relative;
-           overflow: hidden;
-       }
-
-       .prayer-form::before {
-           content: '✝';
-           position: absolute;
-           top: 50%;
-           left: 50%;
-           transform: translate(-50%, -50%);
-           font-size: 10rem;
-           color: rgba(255, 255, 255, 0.03);
-           z-index: 0;
-       }
-
-       .form-group {
-           margin-bottom: 20px;
-           position: relative;
-           z-index: 1;
-       }
-
-       .form-group label {
-           display: block;
-           margin-bottom: 8px;
-           font-weight: 600;
-           color: var(--gold-light);
-       }
-
-       .form-group input,
-       .form-group textarea,
-       .form-group select {
-           width: 100%;
-           padding: 12px;
-           border: 1px solid rgba(255, 255, 255, 0.2);
-           border-radius: 8px;
-           background: rgba(0, 0, 0, 0.3);
-           color: var(--text-color);
-           font-size: 1rem;
-           transition: all 0.3s;
-       }
-
-       .form-group input:focus,
-       .form-group textarea:focus,
-       .form-group select:focus {
-           outline: none;
-           border-color: var(--accent-color);
-           background: rgba(0, 0, 0, 0.5);
-           box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
-       }
-
-       .form-group textarea {
-           min-height: 120px;
-           resize: vertical;
-       }
-
-       .btn {
-           display: inline-block;
-           background: linear-gradient(135deg, var(--secondary-color), var(--gold-dark));
-           color: var(--text-dark);
-           border: none;
-           padding: 12px 25px;
-           border-radius: 8px;
-           cursor: pointer;
-           font-size: 1rem;
-           font-weight: 700;
-           transition: all 0.3s;
-           text-align: center;
-           text-transform: uppercase;
-           letter-spacing: 1px;
-           box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
-           position: relative;
-           overflow: hidden;
-           z-index: 1;
-       }
-
-       .btn::before {
-           content: '';
-           position: absolute;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background: linear-gradient(135deg, var(--gold-dark), var(--secondary-color));
-           z-index: -1;
-           opacity: 0;
-           transition: opacity 0.3s;
-       }
-
-       .btn:hover {
-           transform: translateY(-3px);
-           box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
-       }
-
-       .btn:hover::before {
-           opacity: 1;
-       }
-
-       .btn:active {
-           transform: translateY(1px);
-       }
-
-       .btn-block {
-           display: block;
-           width: 100%;
-       }
-
-       .btn i {
-           margin-right: 8px;
-       }
-
-       /* Footer */
-       footer {
-           background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
-           color: var(--text-color);
-           text-align: center;
-           padding: 30px 15px calc(30px + var(--iphone-bottom));
-           margin-top: 40px;
-           position: relative;
-       }
-
-       .footer-wave {
-           position: absolute;
-           top: -30px;
-           left: 0;
-           width: 100%;
-           height: 30px;
-           background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%231a237e" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%231a237e" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%231a237e"/></svg>');
-           background-size: cover;
-       }
-
-       .footer-content {
-           max-width: 1200px;
-           margin: 0 auto;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-       }
-
-       .footer-logo {
-           width: 100px;
-           margin-bottom: 15px;
-           filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
-       }
-
-       .footer-text {
-           max-width: 700px;
-           margin-bottom: 20px;
-           font-size: 0.9rem;
-           opacity: 0.9;
-       }
-
-       .social-links {
-           display: flex;
-           margin: 20px 0;
-           gap: 15px;
-       }
-
-       .social-links a {
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           width: 45px;
-           height: 45px;
-           background: rgba(255,255,255,0.1);
-           color: var(--text-color);
-           border-radius: 50%;
-           font-size: 1.2rem;
-           transition: all 0.3s;
-           box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-       }
-
-       .social-links a:hover {
-           background: var(--secondary-color);
-           color: var(--text-dark);
-           transform: translateY(-5px) scale(1.1);
-           box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
-       }
-
-       .copyright {
-           margin-top: 20px;
-           font-size: 0.8rem;
-           opacity: 0.7;
-       }
-
-       /* Modal */
-       .modal {
-           display: none;
-           position: fixed;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background: rgba(0, 0, 0, 0.95);
-           z-index: 2000;
-           justify-content: center;
-           align-items: center;
-           animation: fadeIn 0.3s ease-out;
-           padding: var(--iphone-notch) 0 var(--iphone-bottom);
-       }
-
-       .modal-content {
-           position: relative;
-           max-width: 90%;
-           max-height: 90%;
-           animation: fadeInUp 0.4s ease-out;
-       }
-
-       .modal img {
-           max-width: 100%;
-           max-height: 80vh;
-           border-radius: 10px;
-           box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-           border: 2px solid rgba(255,255,255,0.1);
-       }
-
-       .close-modal {
-           position: absolute;
-           top: 15px;
-           right: 15px;
-           background: var(--secondary-color);
-           color: var(--text-dark);
-           border: none;
-           width: 40px;
-           height: 40px;
-           border-radius: 50%;
-           font-size: 1.5rem;
-           cursor: pointer;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           transition: all 0.3s;
-           box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-       }
-
-       .close-modal:hover {
-           transform: rotate(90deg) scale(1.1);
-           background: var(--gold-dark);
-       }
-
-       /* Floating Bottom Navigation */
-       .bottom-nav {
-           position: fixed;
-           bottom: var(--iphone-bottom);
-           left: 0;
-           width: 100%;
-           background: rgba(26, 35, 126, 0.95);
-           backdrop-filter: blur(10px);
-           display: flex;
-           justify-content: space-around;
-           padding: 10px 0;
-           box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
-           z-index: 1000;
-           border-top: 1px solid rgba(255,255,255,0.1);
-       }
-
-       .bottom-nav a {
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           text-decoration: none;
-           color: var(--text-color);
-           font-size: 0.7rem;
-           transition: all 0.3s;
-           padding: 5px 10px;
-           border-radius: 10px;
-       }
-
-       .bottom-nav a i {
-           font-size: 1.3rem;
-           margin-bottom: 3px;
-       }
-
-       .bottom-nav a span {
-           font-size: 0.7rem;
-       }
-
-       .bottom-nav a.active, .bottom-nav a:hover {
-           color: var(--secondary-color);
-           transform: translateY(-5px);
-       }
-
-       /* PWA Install Prompt */
-       .install-prompt {
-           position: fixed;
-           bottom: calc(60px + var(--iphone-bottom));
-           left: 50%;
-           transform: translateX(-50%);
-           background: var(--primary-color);
-           color: var(--text-color);
-           padding: 15px;
-           border-radius: 10px;
-           box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-           display: flex;
-           align-items: center;
-           gap: 10px;
-           z-index: 1500;
-           animation: slideUp 0.5s ease-out;
-           max-width: 90%;
-       }
-
-       .install-prompt button {
-           background: var(--secondary-color);
-           color: var(--text-dark);
-           border: none;
-           padding: 8px 15px;
-           border-radius: 5px;
-           font-weight: bold;
-           cursor: pointer;
-       }
-
-       .install-prompt button:last-child {
-           background: transparent;
-           color: var(--text-color);
-           border: 1px solid var(--text-color);
-       }
-
-       @keyframes slideUp {
-           from { transform: translateX(-50%) translateY(100px); opacity: 0; }
-           to { transform: translateX(-50%) translateY(0); opacity: 1; }
-       }
-
-       /* Pull to Refresh */
-       .ptr-element {
-           position: absolute;
-           top: -50px;
-           left: 0;
-           width: 100%;
-           height: 50px;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           color: var(--text-color);
-           opacity: 0;
-       }
-
-       /* Splash Screen for PWA */
-       .splash {
-           position: fixed;
-           top: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           background: var(--primary-dark);
-           display: flex;
-           flex-direction: column;
-           justify-content: center;
-           align-items: center;
-           z-index: 9999;
-           animation: fadeOut 1s ease-in-out 2s forwards;
-       }
-
-       .splash-logo {
-           width: 150px;
-           height: 150px;
-           margin-bottom: 20px;
-           animation: pulse 1.5s infinite;
-       }
-
-       .splash-text {
-           color: var(--text-color);
-           font-size: 1.5rem;
-           font-weight: bold;
-           margin-top: 20px;
-       }
-
-       @keyframes fadeOut {
-           to { opacity: 0; visibility: hidden; }
-       }
-
-       /* Dark Mode Toggle */
-       .dark-mode-toggle {
-           position: fixed;
-           bottom: calc(60px + var(--iphone-bottom) + 10px);
-           right: 10px;
-           width: 40px;
-           height: 40px;
-           background: rgba(255,255,255,0.2);
-           border-radius: 50%;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           z-index: 1001;
-           cursor: pointer;
-           transition: all 0.3s;
-       }
-
-       .dark-mode-toggle:hover {
-           background: var(--secondary-color);
-           transform: scale(1.1);
-       }
-
-       .dark-mode-toggle i {
-           font-size: 1.2rem;
-           color: var(--text-color);
-       }
-
-       /* iPhone-specific styles */
-       @supports (padding: max(0px)) {
-           body {
-               padding-top: max(var(--iphone-notch), 15px);
-               padding-bottom: calc(max(var(--iphone-bottom), 15px) + 60px);
-           }
-           
-           header {
-               padding-top: max(1rem, var(--iphone-notch));
-               padding-bottom: max(1rem, var(--iphone-notch));
-           }
-           
-           header.scrolled {
-               padding-top: max(0.5rem, var(--iphone-notch));
-               padding-bottom: max(0.5rem, var(--iphone-notch));
-           }
-           
-           .notch {
-               display: block;
-           }
-       }
-
-       /* Responsive Adjustments */
-       @media (min-width: 768px) {
-           .bottom-nav {
-               display: none;
-           }
-           
-           body {
-               padding-bottom: var(--iphone-bottom);
-           }
-       }
-   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Terço dos Homens - Unidos em Oração</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a4e8a;
+            --primary-light: #e6f0f9;
+            --secondary-color: #d4a017;
+            --accent-color: #8cb3d9;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+            --light-gray: #f9f9f9;
+            --medium-gray: #e0e0e0;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --border-radius: 16px;
+            --card-padding: 25px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #0d3a6d);
+            color: var(--white);
+            padding: 18px 25px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 42px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .profile-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .profile-btn i {
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--white);
+            padding: 80px 25px 30px;
+            transition: right 0.3s ease-out;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        nav.active {
+            right: 0;
+        }
+
+        .nav-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .nav-profile {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+
+        .nav-profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-user-info h3 {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 3px;
+        }
+
+        .nav-user-info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-bottom: 8px;
+        }
+
+        nav ul li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        nav ul li a i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        nav ul li a:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 78px;
+            padding: 25px;
+        }
+
+        /* Welcome Banner */
+        .welcome-banner {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://santuariodenazare.com.br/wp-content/uploads/2020/04/santo-terco.jpg') center/cover;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 30px;
+            color: var(--white);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .welcome-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            line-height: 1.3;
+        }
+
+        .welcome-banner p {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+        }
+
+        .action-card i {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            background: var(--primary-light);
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 50%;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .action-card h3 {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .action-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            background: #0d3a6d;
+            transform: translateY(-2px);
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .action-card:hover i {
+            transform: scale(1.1);
+            color: var(--secondary-color);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin: 40px 0 20px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 5px;
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        /* Bible Passage */
+        .bible-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bible-card::before {
+            content: '✝';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem;
+            color: rgba(26, 78, 138, 0.05);
+            z-index: 0;
+        }
+
+        .bible-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bible-card h3 i {
+            color: var(--secondary-color);
+        }
+
+        .bible-passage {
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+            padding-left: 20px;
+            border-left: 3px solid var(--secondary-color);
+        }
+
+        .bible-reference {
+            display: block;
+            text-align: right;
+            margin-top: 15px;
+            font-style: normal;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Prayer Form */
+        .prayer-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prayer-card::before {
+            content: '✝';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12rem;
+            color: rgba(26, 78, 138, 0.05);
+            z-index: 0;
+        }
+
+        .prayer-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prayer-card h3 i {
+            color: var(--secondary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid var(--medium-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background: var(--light-gray);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(140, 179, 217, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-color), #c19116);
+            color: var(--white);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.3);
+            width: 100%;
+            text-align: center;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #c19116, var(--secondary-color));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 160, 23, 0.4);
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .about-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-section h3 i {
+            color: var(--secondary-color);
+        }
+
+        .about-section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+
+        /* External Links */
+        .external-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .external-link {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .external-link img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 12px;
+        }
+
+        .external-link h4 {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .link-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 150px;
+        }
+
+        .link-btn:hover {
+            background: #0d3a6d;
+            transform: translateY(-2px);
+        }
+
+        .external-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-color), #0d3a6d);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 25px;
+            margin-top: 40px;
+        }
+
+        .footer-logo {
+            width: 120px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto 25px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .footer-contact {
+            margin-bottom: 25px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .footer-contact i {
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 30px;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.75rem;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .bottom-nav a i {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
+            transition: all 0.3s;
+        }
+
+        .bottom-nav a.active, 
+        .bottom-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .bottom-nav a.active i, 
+        .bottom-nav a:hover i {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 768px) {
+            .welcome-banner {
+                height: 280px;
+                padding: 0 50px;
+            }
+
+            .welcome-banner h1 {
+                font-size: 2.5rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .external-links {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .bottom-nav {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
-   <!-- iPhone Notch Simulation -->
-   <div class="notch"></div>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="https://tercoonline.com.br/wp-content/uploads/2020/04/terco-online-logo.png" alt="Logo Terço dos Homens" class="logo-img">
+            <div class="logo-text">Terço dos Homens</div>
+        </div>
+        <div class="header-actions">
+            <div class="profile-btn" id="profile-btn">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
 
-   <!-- Splash Screen for PWA -->
-   <div class="splash">
-       <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Logo Terço dos Homens" class="splash-logo">
-       <div class="splash-text">Terço dos Homens</div>
-   </div>
+    <!-- Navigation -->
+    <nav id="nav-menu">
+        <div class="nav-header">
+            <div class="nav-profile">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Perfil do Usuário">
+            </div>
+            <div class="nav-user-info">
+                <h3>João da Silva</h3>
+                <p>Membro desde 2020</p>
+            </div>
+        </div>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i> Início</a></li>
+            <li><a href="#"><i class="fas fa-praying-hands"></i> Orações</a></li>
+            <li><a href="#"><i class="fas fa-calendar-check"></i> Agenda</a></li>
+            <li><a href="#"><i class="fas fa-rosary"></i> Mistérios</a></li>
+            <li><a href="#"><i class="fas fa-book-bible"></i> Liturgia Diária</a></li>
+            <li><a href="#"><i class="fas fa-photo-video"></i> Galeria</a></li>
+            <li><a href="#"><i class="fas fa-church"></i> Paróquias</a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> Configurações</a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        </ul>
+    </nav>
 
-   <!-- Header with Hamburger Menu -->
-   <header id="main-header">
-       <div class="logo-container">
-           <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Logo Terço dos Homens" class="logo-img">
-           <div class="logo-text">Terço dos Homens</div>
-       </div>
-       
-       <div class="menu-toggle" id="mobile-menu">
-           <span></span>
-           <span></span>
-           <span></span>
-       </div>
-       
-       <nav id="nav-menu">
-           <ul>
-               <li><a href="https://hvhfdd.github.io/calendario/" class="active"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
-               <li><a href="https://hvhfdd.github.io/ora-otre-o/"><i class="fas fa-pray"></i> Oração</a></li>
-               <li><a href="https://domusweb.site/"><i class="fas fa-store"></i> Loja</a></li>
-               <li><a href="https://hvhfdd.github.io/tre-oflix"><i class="fas fa-film"></i> Filmes</a></li>
-               <li><a href="https://hvhfdd.github.io/galeria/"><i class="fas fa-images"></i> Galeria</a></li>
-               <li><a href="https://hvhfdd.github.io/litogia/"><i class="fas fa-bible"></i> Liturgia</a></li>
-               <li><a href="https://radio.cancaonova.com/am-cachoeira-paulista/"><i class="fas fa-broadcast-tower"></i> Radio</a></li>
-               <li><a href="https://hvhfdd.github.io/ebook/"><i class="fas fa-cross"></i> Quaresma</a></li>
-           </ul>
-           
-           <!-- Language Selector -->
-           <div class="language-selector">
-               <button class="language-btn" id="language-btn">
-                   <img src="https://flagcdn.com/w20/br.png" alt="Portuguese">
-                   <span>Português</span>
-               </button>
-               <div class="language-dropdown" id="language-dropdown">
-                   <a href="#" data-lang="pt">
-                       <img src="https://flagcdn.com/w20/br.png" alt="Portuguese">
-                       Português
-                   </a>
-                   <a href="#" data-lang="en">
-                       <img src="https://flagcdn.com/w20/us.png" alt="English">
-                       English
-                   </a>
-                   <a href="#" data-lang="es">
-                       <img src="https://flagcdn.com/w20/es.png" alt="Spanish">
-                       Español
-                   </a>
-                   <a href="#" data-lang="fr">
-                       <img src="https://flagcdn.com/w20/fr.png" alt="French">
-                       Français
-                   </a>
-                   <a href="#" data-lang="it">
-                       <img src="https://flagcdn.com/w20/it.png" alt="Italian">
-                       Italiano
-                   </a>
-                   <a href="#" data-lang="de">
-                       <img src="https://flagcdn.com/w20/de.png" alt="German">
-                       Deutsch
-                   </a>
-                   <a href="#" data-lang="pl">
-                       <img src="https://flagcdn.com/w20/pl.png" alt="Polish">
-                       Polski
-                   </a>
-               </div>
-           </div>
-       </nav>
-   </header>
+    <!-- Main Content -->
+    <main>
+        <!-- Welcome Banner -->
+        <section class="welcome-banner">
+            <h1>Juntos em Oração pela Paz e Família</h1>
+            <p>Todas as segundas-feiras às 19h na Paróquia Santo Antônio</p>
+        </section>
 
-   <!-- Main Content -->
-   <main>
-       <!-- Banner Section -->
-       <section class="banner">
-           <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Rosary Decoration" class="rosary-decoration rosary-1">
-           <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Rosary Decoration" class="rosary-decoration rosary-2">
-           <div class="banner-content">
-               <h1 id="welcome-text">Bem-vindo ao Terço dos Homens Gusmão!</h1>
-               <p id="welcome-subtext">Unidos em oração pela paz e pela família</p>
-           </div>
-       </section>
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card">
+                <i class="fas fa-praying-hands"></i>
+                <h3>Oração do Dia</h3>
+                <p>Reze a oração selecionada para hoje</p>
+                <button class="action-btn">Acessar</button>
+            </div>
+            <div class="action-card">
+                <i class="fas fa-rosary"></i>
+                <h3>Mistérios</h3>
+                <p>Conheça os mistérios do Santo Terço</p>
+                <button class="action-btn">Ver Mistérios</button>
+            </div>
+            <div class="action-card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Agenda</h3>
+                <p>Próximos eventos e encontros</p>
+                <button class="action-btn">Ver Agenda</button>
+            </div>
+            <div class="action-card">
+                <i class="fas fa-book-bible"></i>
+                <h3>Liturgia</h3>
+                <p>Leituras do dia e reflexões</p>
+                <button class="action-btn">Acessar</button>
+            </div>
+        </div>
 
-       <!-- Quick Links Section -->
-       <section class="section">
-           <h2><i class="fas fa-link"></i> <span id="quicklinks-title">Links Rápidos</span></h2>
-           <div class="quick-links">
-               <a href="https://hvhfdd.github.io/litogia/" class="quick-link" target="_blank">
-                   <img src="https://paroquiasantateresinha.com.br/wp-content/uploads/2022/10/LOGO-png.webp" alt="Liturgia">
-                   <p id="liturgy-link">Liturgia Diária</p>
-               </a>
-               <a href="https://hvhfdd.github.io/ebook/" class="quick-link" target="_blank">
-                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1fI18-RJII8mrK9LYCITxOOwGs04tlVWq6q9zbwPGdd05ihSX9nPsaeTrDvymiCuSBgs&usqp=CAU" alt="Quaresma">
-                   <p id="lent-link">Quaresma 2025</p>
-               </a>
-               <a href="https://hvhfdd.github.io/ora-otre-o/" class="quick-link" target="_blank">
-                   <img src="https://i.imgur.com/Jf5yZQt.png" alt="Orações">
-                   <p id="prayers-link">Orações</p>
-               </a>
-               <a href="https://hvhfdd.github.io/galeria/" class="quick-link" target="_blank">
-                   <img src="https://cdn-icons-png.flaticon.com/512/2343/2343725.png" alt="Galeria">
-                   <p id="gallery-link">Nossa Galeria</p>
-               </a>
-           </div>
-       </section>
+        <!-- Bible Passage -->
+        <h2 class="section-title">Palavra do Dia</h2>
+        <div class="bible-card">
+            <h3><i class="fas fa-bible"></i> Evangelho de Hoje</h3>
+            <div class="bible-passage">
+                "Onde dois ou três estiverem reunidos em meu nome, eu estou aí no meio deles."
+            </div>
+            <span class="bible-reference">Mateus 18:20</span>
+        </div>
 
-       <!-- Bible Passage Section -->
-       <section class="section">
-           <h2><i class="fas fa-bible"></i> <span id="passages-title">Passagens Bíblicas</span></h2>
-           <p class="bible-passage" id="bible-passage">Onde não há visão, o povo perece.<span class="bible-reference">Provérbios 29:18</span></p>
-       </section>
+        <!-- Prayer Form -->
+        <h2 class="section-title">Intenções de Oração</h2>
+        <div class="prayer-card">
+            <h3><i class="fas fa-hands-praying"></i> Envie sua Intenção</h3>
+            <form id="prayerForm">
+                <div class="form-group">
+                    <label for="name">Seu Nome</label>
+                    <input type="text" id="name" placeholder="Digite seu nome completo">
+                </div>
+                <div class="form-group">
+                    <label for="prayer">Sua Intenção</label>
+                    <textarea id="prayer" placeholder="Escreva aqui sua intenção de oração..."></textarea>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-paper-plane"></i> Enviar Intenção
+                </button>
+            </form>
+        </div>
 
-       <!-- Meeting Info Section -->
-       <section class="section">
-           <h2><i class="fas fa-users"></i> <span id="meeting-title">Nossos Encontros</span></h2>
-           <p id="meeting-text">Nosso encontro são todas as segundas-feiras às 19hs, esperamos você lá! :)</p>
-           
-           <!-- Dayspedia Widget -->
-           <div class="dayspedia-widget">
-               <iframe width='100%' height='250' style='padding:0!important;margin:20px auto!important;border:none!important;background:none!important;background:transparent!important' marginheight='0' marginwidth='0' frameborder='0' scrolling='no' comment='/*defined*/' src='https://dayspedia.com/if/digit/?v=1&iframe=eyJ3LTEyIjp0cnVlLCJ3LTExIjp0cnVlLCJ3LTEzIjp0cnVlLCJ3LTE0IjpmYWxzZSwidy0xNSI6dHJ1ZSwidy0xMTAiOnRydWUsInctd2lkdGgtMCI6ZmFsc2UsInctd2lkdGgtMSI6dHJ1ZSwidy13aWR0aC0yIjpmYWxzZSwidy0xNiI6IjI0cHgiLCJ3LTE5IjoiNDgiLCJ3LTE3IjoiMjQiLCJ3LTIxIjp0cnVlLCJiZ2ltYWdlIjozLCJiZ2ltYWdlU2V0Ijp0cnVlLCJ3LTIxYzAiOiIjZmZmZmZmIiwidy0wIjp0cnVlLCJ3LTMiOnRydWUsInctM2MwIjoiI2ZmZmZmZiIsInctM2IwIjoiMSIsInctNiI6IiNmY2ZjZmMiLCJ3LTIwIjp0cnVlLCJ3LTQiOiIjZmZmZmZmIiwidy0xOCI6ZmFsc2UsInctd2lkdGgtMmMtMCI6IjMwMCIsInctMTE1Ijp0cnVlfQ==&lang=pt&cityid=13528'></iframe>
-           </div>
-       </section>
+        <!-- External Links -->
+        <h2 class="section-title">Links Importantes</h2>
+        <div class="external-links">
+            <div class="external-link">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Cancao_Nova_logo.svg/1200px-Cancao_Nova_logo.svg.png" alt="Canção Nova">
+                <h4>Canção Nova</h4>
+                <p>TV, rádio e conteúdo católico</p>
+                <button class="link-btn" onclick="window.open('https://www.cancaonova.com', '_blank')">Acessar</button>
+            </div>
+            <div class="external-link">
+                <img src="https://www.a12.com/source/files/originals/Logo-A12-2021.png" alt="A12">
+                <h4>A12.com</h4>
+                <p>Santuário de Aparecida</p>
+                <button class="link-btn" onclick="window.open('https://www.a12.com', '_blank')">Acessar</button>
+            </div>
+            <div class="external-link">
+                <img src="https://santuariofatima.com.br/wp-content/uploads/2021/03/logo-horizontal.png" alt="Fátima">
+                <h4>Fátima</h4>
+                <p>Santuário de Fátima</p>
+                <button class="link-btn" onclick="window.open('https://www.fatima.pt', '_blank')">Acessar</button>
+            </div>
+            <div class="external-link">
+                <img src="https://cnbb.org.br/wp-content/uploads/2020/04/cnbb_logo_site.png" alt="CNBB">
+                <h4>CNBB</h4>
+                <p>Conferência dos Bispos</p>
+                <button class="link-btn" onclick="window.open('https://www.cnbb.org.br', '_blank')">Acessar</button>
+            </div>
+        </div>
 
-       <!-- About Us Section -->
-       <section class="section">
-           <h2><i class="fas fa-church"></i> <span id="about-title">Quem somos nós</span></h2>
-           <p>No dia 5 de abril de 2005, um novo capítulo na história da evangelização católica foi escrito com a fundação do Movimento Católico Terço dos Homens da paróquia Santo Antônio no bairro Dr Gusmão. Idealizado pelo Padre Wanderley Lacerda e um grupo de irmãos dedicados, esse movimento nasceu com o objetivo de evangelizar e arrebanhar corações para Cristo e Nossa Senhora.</p>
-           <p>Com base nos ensinamentos da Igreja Católica e inspirado na devoção ao Terço, o Movimento Católico Terço dos Homens busca fortalecer a fé e a espiritualidade dos homens, incentivando-os a assumir um papel ativo na vida da Igreja e na sociedade.</p>
-           <p>Ao longo dos anos, o movimento tem crescido e se espalhado por diversas regiões, atraindo milhares de homens que buscam uma relação mais profunda com Deus e com a comunidade católica. Por meio de reuniões de oração, retiros espirituais e atividades de evangelização, o Terço dos Homens tem sido um instrumento poderoso para a conversão e o crescimento espiritual.</p>
-           <p>A fundação do Movimento Católico Terço dos Homens é um testemunho da força e do dinamismo da fé católica, e um lembrete de que a evangelização é uma tarefa contínua que exige a participação ativa de todos os fiéis. Que o exemplo do Padre Wanderley Lacerda e dos irmãos que fundaram esse movimento inspire outros a seguir os passos de Cristo e a se dedicar à missão de evangelizar e santificar.</p>
-       </section>
+        <!-- About Section -->
+        <h2 class="section-title">Nossa História</h2>
+        <div class="about-section">
+            <h3><i class="fas fa-church"></i> Sobre Nós</h3>
+            <p>
+                O Terço dos Homens nasceu em 2005 na Paróquia Santo Antônio, no bairro Dr. Gusmão, 
+                fruto da inspiração do Padre Wanderley Lacerda e um grupo de homens dedicados. 
+                Nosso objetivo é evangelizar e congregar homens em torno de Cristo e Nossa Senhora, 
+                através da oração do Santo Terço.
+            </p>
+            <p>
+                Rezamos todas as segundas-feiras às 19h, unindo nossas vozes em oração pela paz, 
+                pelas famílias e por todas as necessidades da comunidade. Já somos mais de 500 homens 
+                comprometidos com a fé e a transformação social através da oração.
+            </p>
+        </div>
+    </main>
 
-       <!-- Prayer Form Section -->
-       <section class="section prayer-form">
-           <h2><i class="fas fa-hands-praying"></i> <span id="prayer-title">Envie sua Intenção de Oração</span></h2>
-           <form id="prayerForm">
-               <div class="form-group">
-                   <label for="name" id="name-label">Seu Nome</label>
-                   <input type="text" id="name" required>
-               </div>
-               <div class="form-group">
-                   <label for="prayer" id="prayer-label">Sua Intenção de Oração</label>
-                   <textarea id="prayer" rows="5" required></textarea>
-               </div>
-               <div class="form-group">
-                   <label for="parish" id="parish-label">Sua Paróquia</label>
-                   <input type="text" id="parish" required>
-               </div>
-               <button type="submit" class="btn btn-block"><i class="fas fa-paper-plane"></i> <span id="submit-btn">Enviar Intenção</span></button>
-           </form>
-       </section>
+    <!-- Footer -->
+    <footer>
+        <img src="https://tercoonline.com.br/wp-content/uploads/2020/04/terco-online-logo.png" alt="Logo Terço dos Homens" class="footer-logo">
+        <p class="footer-text">
+            Movimento Terço dos Homens - Paróquia Santo Antônio<br>
+            Unidos em oração pela paz e pela família
+        </p>
+        <div class="footer-contact">
+            <p><i class="fas fa-map-marker-alt"></i> Rua Exemplo, 123 - Bairro Dr. Gusmão - Eunápolis/BA</p>
+            <p><i class="fas fa-phone-alt"></i> (73) 99999-9999</p>
+            <p><i class="fas fa-envelope"></i> contato@tercodoshomens.com.br</p>
+        </div>
+        <p class="copyright">
+            &copy; 2023 Terço dos Homens. Todos os direitos reservados.
+        </p>
+    </footer>
 
-       <!-- Visitor Counter -->
-       <section class="section">
-           <h2><i class="fas fa-users"></i> <span id="visitors-title">Nossos Visitantes</span></h2>
-           <a href="https://info.flagcounter.com/W8DY"><img src="https://s05.flagcounter.com/count2/W8DY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_Visitantes+que+viram+nosso+site/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="width:100%"></a>
-       </section>
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#" class="active">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </a>
+        <a href="#">
+            <i class="fas fa-praying-hands"></i>
+            <span>Orações</span>
+        </a>
+        <a href="#">
+            <i class="fas fa-calendar-check"></i>
+            <span>Agenda</span>
+        </a>
+        <a href="#">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+    </div>
 
-       <!-- Audio Player -->
-       <audio id="player" controls autoplay muted style="display: none;">
-           <source src="img/videoplayback.m4a" type="audio/mp4">
-           <source src="img/videoplayback.mp3" type="audio/mpeg">
-           Seu navegador não suporta o elemento de áudio.
-       </audio>
-   </main>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        const profileBtn = document.getElementById('profile-btn');
 
-   <!-- Footer -->
-   <footer>
-       <div class="footer-wave"></div>
-       <div class="footer-content">
-           <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Logo Terço dos Homens" class="footer-logo">
-           <p class="footer-text" id="footer-text">Junte-se a nós todas as segundas-feiras às 19h para rezar o terço em comunidade. Todos os homens são bem-vindos!</p>
-         
-           <div class="social-links">
-               <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-               <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-               <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-               <a href="https://whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
-           </div>
-           
-           <p class="copyright">&copy; <span id="current-year">2025</span> <span id="copyright-text">Terço dos Homens Eunápolis - Todos os direitos reservados</span></p>
-       </div>
-   </footer>
+        mobileMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
 
-   <!-- Floating Bottom Navigation -->
-   <div class="bottom-nav">
-       <a href="https://hvhfdd.github.io/calendario/" class="active">
-           <i class="fas fa-calendar-alt"></i>
-           <span id="nav-calendar">Calendário</span>
-       </a>
-       <a href="https://hvhfdd.github.io/ora-otre-o/">
-           <i class="fas fa-pray"></i>
-           <span id="nav-prayer">Oração</span>
-       </a>
-       <a href="https://hvhfdd.github.io/litogia/">
-           <i class="fas fa-bible"></i>
-           <span id="nav-liturgy">Liturgia</span>
-       </a>
-       <a href="https://hvhfdd.github.io/galeria/">
-           <i class="fas fa-images"></i>
-           <span id="nav-gallery">Galeria</span>
-       </a>
-   </div>
+        profileBtn.addEventListener('click', function() {
+            alert("Perfil do usuário:\n\nNome: João da Silva\nEmail: joao@example.com\nMembro desde: 15/03/2020");
+        });
 
-   <!-- Dark Mode Toggle -->
-   <div class="dark-mode-toggle" id="dark-mode-toggle">
-       <i class="fas fa-moon"></i>
-   </div>
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
 
-   <!-- Modal for Images -->
-   <div id="modal" class="modal">
-       <div class="modal-content">
-           <img id="img-ampliada" src="" alt="Imagem Ampliada">
-           <button class="close-modal" id="close-modal">&times;</button>
-       </div>
-   </div>
+        // Auto-changing bible passages
+        const biblePassages = [
+            {
+                text: '"Onde dois ou três estiverem reunidos em meu nome, eu estou aí no meio deles."',
+                reference: 'Mateus 18:20'
+            },
+            {
+                text: '"Tudo posso naquele que me fortalece."',
+                reference: 'Filipenses 4:13'
+            },
+            {
+                text: '"O Senhor é meu pastor, nada me faltará."',
+                reference: 'Salmo 23:1'
+            },
+            {
+                text: '"Amai-vos uns aos outros como eu vos amei."',
+                reference: 'João 13:34'
+            },
+            {
+                text: '"Buscai primeiro o Reino de Deus e sua justiça, e todas estas coisas vos serão dadas por acréscimo."',
+                reference: 'Mateus 6:33'
+            }
+        ];
 
-   <!-- PWA Install Prompt -->
-   <div class="install-prompt" id="install-prompt" style="display: none;">
-       <i class="fas fa-download"></i>
-       <span id="install-text">Instalar o aplicativo Terço dos Homens?</span>
-       <button id="install-btn">Instalar</button>
-       <button id="cancel-install">Depois</button>
-   </div>
+        function changeBiblePassage() {
+            const passageElement = document.querySelector('.bible-passage');
+            const referenceElement = document.querySelector('.bible-reference');
+            const randomPassage = biblePassages[Math.floor(Math.random() * biblePassages.length)];
+            
+            passageElement.textContent = randomPassage.text;
+            referenceElement.textContent = randomPassage.reference;
+            
+            // Animation
+            passageElement.style.animation = 'none';
+            referenceElement.style.animation = 'none';
+            void passageElement.offsetWidth; // Trigger reflow
+            void referenceElement.offsetWidth;
+            passageElement.style.animation = 'fadeIn 1s ease-out';
+            referenceElement.style.animation = 'fadeIn 1s ease-out';
+        }
 
-   <!-- Manifest for PWA -->
-   <script>
-       // Current year for footer
-       document.getElementById('current-year').textContent = new Date().getFullYear();
+        // Change passage every 10 seconds
+        setInterval(changeBiblePassage, 10000);
 
-       // Header scroll effect
-       const header = document.getElementById('main-header');
-       window.addEventListener('scroll', function() {
-           if (window.scrollY > 50) {
-               header.classList.add('scrolled');
-           } else {
-               header.classList.remove('scrolled');
-           }
-       });
+        // Prayer Form Submission
+        document.getElementById('prayerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const prayer = document.getElementById('prayer').value;
+            
+            if (name && prayer) {
+                alert('Obrigado, ' + name + '! Sua intenção de oração foi recebida e será levada ao nosso próximo encontro.');
+                this.reset();
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        });
 
-       // Mobile menu toggle
-       const mobileMenu = document.getElementById('mobile-menu');
-       const navMenu = document.getElementById('nav-menu');
-
-       mobileMenu.addEventListener('click', function() {
-           this.classList.toggle('active');
-           navMenu.classList.toggle('active');
-           
-           // Disable scroll when menu is open
-           if (navMenu.classList.contains('active')) {
-               document.body.style.overflow = 'hidden';
-           } else {
-               document.body.style.overflow = 'auto';
-           }
-       });
-
-       // Close menu when clicking on a link
-       const navLinks = document.querySelectorAll('nav ul li a');
-       navLinks.forEach(link => {
-           link.addEventListener('click', function() {
-               mobileMenu.classList.remove('active');
-               navMenu.classList.remove('active');
-               document.body.style.overflow = 'auto';
-           });
-       });
-
-       // Language selector
-       const languageBtn = document.getElementById('language-btn');
-       const languageDropdown = document.getElementById('language-dropdown');
-
-       languageBtn.addEventListener('click', function(e) {
-           e.stopPropagation();
-           languageDropdown.classList.toggle('show');
-       });
-
-       // Close language dropdown when clicking outside
-       document.addEventListener('click', function() {
-           languageDropdown.classList.remove('show');
-       });
-
-       // Language content
-       const translations = {
-           'pt': {
-               'welcome-text': 'Bem-vindo ao Terço dos Homens Gusmão!',
-               'welcome-subtext': 'Unidos em oração pela paz e pela família',
-               'quicklinks-title': 'Links Rápidos',
-               'liturgy-link': 'Liturgia Diária',
-               'lent-link': 'Quaresma 2025',
-               'prayers-link': 'Orações',
-               'gallery-link': 'Nossa Galeria',
-               'passages-title': 'Passagens Bíblicas',
-               'bible-passage': 'Onde não há visão, o povo perece.',
-               'meeting-title': 'Nossos Encontros',
-               'meeting-text': 'Nosso encontro são todas as segundas-feiras às 19hs, esperamos você lá! :)',
-               'about-title': 'Quem somos nós',
-               'prayer-title': 'Envie sua Intenção de Oração',
-               'name-label': 'Seu Nome',
-               'prayer-label': 'Sua Intenção de Oração',
-               'parish-label': 'Sua Paróquia',
-               'submit-btn': 'Enviar Intenção',
-               'visitors-title': 'Nossos Visitantes',
-               'footer-text': 'Junte-se a nós todas as segundas-feiras às 19h para rezar o terço em comunidade. Todos os homens são bem-vindos!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Todos os direitos reservados',
-               'nav-calendar': 'Calendário',
-               'nav-prayer': 'Oração',
-               'nav-liturgy': 'Liturgia',
-               'nav-gallery': 'Galeria',
-               'install-text': 'Instalar o aplicativo Terço dos Homens?'
-           },
-           'en': {
-               'welcome-text': 'Welcome to Terço dos Homens Gusmão!',
-               'welcome-subtext': 'United in prayer for peace and family',
-               'quicklinks-title': 'Quick Links',
-               'liturgy-link': 'Daily Liturgy',
-               'lent-link': 'Lent 2025',
-               'prayers-link': 'Prayers',
-               'gallery-link': 'Our Gallery',
-               'passages-title': 'Bible Passages',
-               'bible-passage': 'Where there is no vision, the people perish.',
-               'meeting-title': 'Our Meetings',
-               'meeting-text': 'Our meeting is every Monday at 7pm, we hope to see you there! :)',
-               'about-title': 'Who we are',
-               'prayer-title': 'Send Your Prayer Intention',
-               'name-label': 'Your Name',
-               'prayer-label': 'Your Prayer Intention',
-               'parish-label': 'Your Parish',
-               'submit-btn': 'Send Intention',
-               'visitors-title': 'Our Visitors',
-               'footer-text': 'Join us every Monday at 7pm to pray the rosary in community. All men are welcome!',
-               'copyright-text': 'Terço dos Homens Eunápolis - All rights reserved',
-               'nav-calendar': 'Calendar',
-               'nav-prayer': 'Prayer',
-               'nav-liturgy': 'Liturgy',
-               'nav-gallery': 'Gallery',
-               'install-text': 'Install the Rosary for Men app?'
-           },
-           'es': {
-               'welcome-text': '¡Bienvenido a Terço dos Homens Gusmão!',
-               'welcome-subtext': 'Unidos en oración por la paz y la familia',
-               'quicklinks-title': 'Enlaces Rápidos',
-               'liturgy-link': 'Liturgia Diaria',
-               'lent-link': 'Cuaresma 2025',
-               'prayers-link': 'Oraciones',
-               'gallery-link': 'Nuestra Galería',
-               'passages-title': 'Pasajes Bíblicos',
-               'bible-passage': 'Donde no hay visión, el pueblo perece.',
-               'meeting-title': 'Nuestros Encuentros',
-               'meeting-text': '¡Nuestra reunión es todos los lunes a las 7pm, te esperamos allí! :)',
-               'about-title': 'Quiénes somos',
-               'prayer-title': 'Envía tu Intención de Oración',
-               'name-label': 'Tu Nombre',
-               'prayer-label': 'Tu Intención de Oración',
-               'parish-label': 'Tu Parroquia',
-               'submit-btn': 'Enviar Intención',
-               'visitors-title': 'Nuestros Visitantes',
-               'footer-text': 'Únase a nosotros todos los lunes a las 7pm para rezar el rosario en comunidad. ¡Todos los hombres son bienvenidos!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Todos los derechos reservados',
-               'nav-calendar': 'Calendario',
-               'nav-prayer': 'Oración',
-               'nav-liturgy': 'Liturgia',
-               'nav-gallery': 'Galería',
-               'install-text': '¿Instalar la aplicación Rosario para Hombres?'
-           },
-           'fr': {
-               'welcome-text': 'Bienvenue à Terço dos Homens Gusmão!',
-               'welcome-subtext': 'Unis dans la prière pour la paix et la famille',
-               'quicklinks-title': 'Liens Rapides',
-               'liturgy-link': 'Liturgie Quotidienne',
-               'lent-link': 'Carême 2025',
-               'prayers-link': 'Prières',
-               'gallery-link': 'Notre Galerie',
-               'passages-title': 'Passages Bibliques',
-               'bible-passage': 'Quand il n\'y a pas de vision, le peuple périt.',
-               'meeting-title': 'Nos Réunions',
-               'meeting-text': 'Notre réunion a lieu tous les lundis à 19h, nous espérons vous y voir ! :)',
-               'about-title': 'Qui nous sommes',
-               'prayer-title': 'Envoyez Votre Intention de Prière',
-               'name-label': 'Votre Nom',
-               'prayer-label': 'Votre Intention de Prière',
-               'parish-label': 'Votre Paroisse',
-               'submit-btn': 'Envoyer Intention',
-               'visitors-title': 'Nos Visiteurs',
-               'footer-text': 'Rejoignez-nous tous les lundis à 19h pour prier le chapelet en communauté. Tous les hommes sont les bienvenus !',
-               'copyright-text': 'Terço dos Homens Eunápolis - Tous droits réservés',
-               'nav-calendar': 'Calendrier',
-               'nav-prayer': 'Prière',
-               'nav-liturgy': 'Liturgie',
-               'nav-gallery': 'Galerie',
-               'install-text': 'Installer l\'application Chapelet pour Hommes?'
-           },
-           'it': {
-               'welcome-text': 'Benvenuti a Terço dos Homens Gusmão!',
-               'welcome-subtext': 'Uniti nella preghiera per la pace e la famiglia',
-               'quicklinks-title': 'Link Veloci',
-               'liturgy-link': 'Liturgia Giornaliera',
-               'lent-link': 'Quaresima 2025',
-               'prayers-link': 'Preghiere',
-               'gallery-link': 'Nostra Galleria',
-               'passages-title': 'Passaggi Biblici',
-               'bible-passage': 'Dove non c\'è visione, il popolo perisce.',
-               'meeting-title': 'I Nostri Incontri',
-               'meeting-text': 'Il nostro incontro è ogni lunedì alle 19:00, speriamo di vederti lì! :)',
-               'about-title': 'Chi siamo',
-               'prayer-title': 'Invia la Tua Intenzione di Preghiera',
-               'name-label': 'Il Tuo Nome',
-               'prayer-label': 'La Tua Intenzione di Preghiera',
-               'parish-label': 'La Tua Parrocchia',
-               'submit-btn': 'Invia Intenzione',
-               'visitors-title': 'I Nostri Visitatori',
-               'footer-text': 'Unisciti a noi ogni lunedì alle 19:00 per pregare il rosario in comunità. Tutti gli uomini sono benvenuti!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Tutti i diritti riservati',
-               'nav-calendar': 'Calendario',
-               'nav-prayer': 'Preghiera',
-               'nav-liturgy': 'Liturgia',
-               'nav-gallery': 'Galleria',
-               'install-text': 'Installare l\'app Rosario per Uomini?'
-           },
-           'de': {
-               'welcome-text': 'Willkommen bei Terço dos Homens Gusmão!',
-               'welcome-subtext': 'Vereint im Gebet für Frieden und Familie',
-               'quicklinks-title': 'Schnellzugriff',
-               'liturgy-link': 'Tägliche Liturgie',
-               'lent-link': 'Fastenzeit 2025',
-               'prayers-link': 'Gebete',
-               'gallery-link': 'Unsere Galerie',
-               'passages-title': 'Bibelstellen',
-               'bible-passage': 'Wo keine Vision ist, geht das Volk zugrunde.',
-               'meeting-title': 'Unsere Treffen',
-               'meeting-text': 'Unser Treffen ist jeden Montag um 19 Uhr, wir hoffen, Sie dort zu sehen! :)',
-               'about-title': 'Wer wir sind',
-               'prayer-title': 'Senden Sie Ihr Gebetsanliegen',
-               'name-label': 'Ihr Name',
-               'prayer-label': 'Ihr Gebetsanliegen',
-               'parish-label': 'Ihre Pfarrei',
-               'submit-btn': 'Anliegen senden',
-               'visitors-title': 'Unsere Besucher',
-               'footer-text': 'Treffen Sie uns jeden Montag um 19 Uhr, um gemeinsam den Rosenkranz zu beten. Alle Männer sind willkommen!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Alle Rechte vorbehalten',
-               'nav-calendar': 'Kalender',
-               'nav-prayer': 'Gebet',
-               'nav-liturgy': 'Liturgie',
-               'nav-gallery': 'Galerie',
-               'install-text': 'Die Rosenkranz für Männer App installieren?'
-           },
-           'pl': {
-               'welcome-text': 'Witamy w Terço dos Homens Gusmão!',
-               'welcome-subtext': 'Zjednoczeni w modlitwie o pokój i rodzinę',
-               'quicklinks-title': 'Szybkie Linki',
-               'liturgy-link': 'Liturgia Codzienna',
-               'lent-link': 'Wielki Post 2025',
-               'prayers-link': 'Modlitwy',
-               'gallery-link': 'Nasza Galeria',
-               'passages-title': 'Fragmenty Biblii',
-               'bible-passage': 'Gdzie nie ma objawienia, ludzie się rozprzęgają.',
-               'meeting-title': 'Nasze Spotkania',
-               'meeting-text': 'Nasze spotkanie odbywa się w każdy poniedziałek o 19:00, mamy nadzieję Cię tam zobaczyć! :)',
-               'about-title': 'Kim jesteśmy',
-               'prayer-title': 'Wyślij swoją Intencję Modlitewną',
-               'name-label': 'Twoje Imię',
-               'prayer-label': 'Twoja Intencja Modlitewna',
-               'parish-label': 'Twoja Parafia',
-               'submit-btn': 'Wyślij Intencję',
-               'visitors-title': 'Nasi Goście',
-               'footer-text': 'Dołącz do nas w każdy poniedziałek o 19:00, aby wspólnie odmówić różaniec. Wszyscy mężczyźni są mile widziani!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Wszelkie prawa zastrzeżone',
-               'nav-calendar': 'Kalendarz',
-               'nav-prayer': 'Modlitwa',
-               'nav-liturgy': 'Liturgia',
-               'nav-gallery': 'Galeria',
-               'install-text': 'Zainstalować aplikację Różaniec dla Mężczyzn?'
-           }
-       };
-
-       // Bible passages in different languages
-       const biblePassages = {
-           'pt': [
-               "Onde não há visão, o povo perece. - Provérbios 29:18",
-               "O Senhor é o meu pastor; nada me faltará. - Salmo 23:1",
-               "Tudo posso naquele que me fortalece. - Filipenses 4:13",
-               "Eu sou o caminho, a verdade e a vida. - João 14:6",
-               "Não andeis ansiosos por coisa alguma. - Filipenses 4:6",
-               "Porque Deus amou o mundo de tal maneira que deu seu Filho unigênito. - João 3:16",
-               "Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará. - Salmo 91:1",
-               "Deus é amor. - 1 João 4:8",
-               "Bem-aventurados os misericordiosos, porque alcançarão misericórdia. - Mateus 5:7",
-               "O Senhor é a minha luz e a minha salvação; a quem temerei? - Salmo 27:1"
-           ],
-           'en': [
-               "Where there is no vision, the people perish. - Proverbs 29:18",
-               "The Lord is my shepherd; I shall not want. - Psalm 23:1",
-               "I can do all things through Christ who strengthens me. - Philippians 4:13",
-               "I am the way, the truth, and the life. - John 14:6",
-               "Be anxious for nothing. - Philippians 4:6",
-               "For God so loved the world that He gave His only begotten Son. - John 3:16",
-               "He who dwells in the secret place of the Most High shall abide under the shadow of the Almighty. - Psalm 91:1",
-               "God is love. - 1 John 4:8",
-               "Blessed are the merciful, for they shall obtain mercy. - Matthew 5:7",
-               "The Lord is my light and my salvation; whom shall I fear? - Psalm 27:1"
-           ],
-           'es': [
-               "Donde no hay visión, el pueblo perece. - Proverbios 29:18",
-               "El Señor es mi pastor; nada me faltará. - Salmo 23:1",
-               "Todo lo puedo en Cristo que me fortalece. - Filipenses 4:13",
-               "Yo soy el camino, la verdad y la vida. - Juan 14:6",
-               "Por nada estéis afanosos. - Filipenses 4:6",
-               "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito. - Juan 3:16",
-               "El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente. - Salmo 91:1",
-               "Dios es amor. - 1 Juan 4:8",
-               "Bienaventurados los misericordiosos, porque ellos alcanzarán misericordia. - Mateo 5:7",
-               "Jehová es mi luz y mi salvación; ¿de quién temeré? - Salmo 27:1"
-           ],
-           'fr': [
-               "Quand il n'y a pas de vision, le peuple périt. - Proverbes 29:18",
-               "L'Éternel est mon berger: je ne manquerai de rien. - Psaume 23:1",
-               "Je puis tout par celui qui me fortifie. - Philippiens 4:13",
-               "Je suis le chemin, la vérité, et la vie. - Jean 14:6",
-               "Ne vous inquiétez de rien. - Philippiens 4:6",
-               "Car Dieu a tant aimé le monde qu'il a donné son Fils unique. - Jean 3:16",
-               "Celui qui demeure sous l'abri du Très-Haut repose à l'ombre du Tout-Puissant. - Psaume 91:1",
-               "Dieu est amour. - 1 Jean 4:8",
-               "Heureux les miséricordieux, car ils obtiendront miséricorde! - Matthieu 5:7",
-               "L'Éternel est ma lumière et mon salut: de qui aurais-je crainte? - Psaume 27:1"
-           ],
-           'it': [
-               "Dove non c'è visione, il popolo perisce. - Proverbi 29:18",
-               "Il Signore è il mio pastore: nulla mi mancherà. - Salmo 23:1",
-               "Io posso ogni cosa in colui che mi fortifica. - Filippesi 4:13",
-               "Io sono la via, la verità e la vita. - Giovanni 14:6",
-               "Non siate in ansietà per cosa alcuna. - Filippesi 4:6",
-               "Perché Dio ha tanto amato il mondo, che ha dato il suo unigenito Figlio. - Giovanni 3:16",
-               "Chi abita al riparo dell'Altissimo riposa all'ombra dell'Onnipotente. - Salmo 91:1",
-               "Dio è amore. - 1 Giovanni 4:8",
-               "Beati i misericordiosi, perché a loro misericordia sarà fatta. - Matteo 5:7",
-               "Il Signore è la mia luce e la mia salvezza; di chi avrò paura? - Salmo 27:1"
-           ],
-           'de': [
-               "Wo keine Offenbarung ist, wird das Volk wild und wüst. - Sprüche 29:18",
-               "Der Herr ist mein Hirte; mir wird nichts mangeln. - Psalm 23:1",
-               "Ich vermag alles durch den, der mich mächtig macht. - Philipper 4:13",
-               "Ich bin der Weg und die Wahrheit und das Leben. - Johannes 14:6",
-               "Sorget um nichts! - Philipper 4:6",
-               "Also hat Gott die Welt geliebt, daß er seinen eingeborenen Sohn gab. - Johannes 3:16",
-               "Wer unter dem Schirm des Höchsten sitzt, der bleibt unter dem Schatten des Allmächtigen. - Psalm 91:1",
-               "Gott ist die Liebe. - 1 Johannes 4:8",
-               "Selig sind die Barmherzigen; denn sie werden Barmherzigkeit erlangen. - Matthäus 5:7",
-               "Der Herr ist mein Licht und mein Heil; vor wem sollte ich mich fürchten? - Psalm 27:1"
-           ],
-           'pl': [
-               "Gdzie nie ma objawienia, ludzie się rozprzęgają. - Przypowieści 29:18",
-               "Pan jest pasterzem moim, niczego mi nie braknie. - Psalm 23:1",
-               "Wszystko mogę w tym, który mnie wzmacnia, w Chrystusie. - Filipian 4:13",
-               "Ja jestem droga i prawda, i żywot. - Jana 14:6",
-               "O nic się nie troszczcie. - Filipian 4:6",
-               "Albowiem tak Bóg umiłował świat, że Syna swego jednorodzonego dał. - Jana 3:16",
-               "Kto mieszka pod osłoną Najwyższego, ten przebywa w cieniu Wszechmocnego. - Psalm 91:1",
-               "Bóg jest miłością. - 1 Jana 4:8",
-               "Błogosławieni miłosierni, albowiem oni miłosierdzia dostąpią. - Mateusza 5:7",
-               "Pan jest światłością moją i zbawieniem moim: kogóż mam się bać? - Psalm 27:1"
-           ]
-       };
-
-       // Change language
-       const languageLinks = document.querySelectorAll('.language-dropdown a');
-       
-       languageLinks.forEach(link => {
-           link.addEventListener('click', function(e) {
-               e.preventDefault();
-               const lang = this.getAttribute('data-lang');
-               changeLanguage(lang);
-               languageDropdown.classList.remove('show');
-               
-               // Update button
-               const flag = this.querySelector('img').src;
-               const text = this.textContent.trim();
-               languageBtn.innerHTML = `<img src="${flag}" alt="${lang}"> <span>${text.split(' ')[0]}</span>`;
-           });
-       });
-
-       function changeLanguage(lang) {
-           // Update all translatable elements
-           for (const key in translations[lang]) {
-               const elements = document.querySelectorAll(`[id="${key}"]`);
-               elements.forEach(el => {
-                   if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                       el.placeholder = translations[lang][key];
-                   } else {
-                       el.textContent = translations[lang][key];
-                   }
-               });
-           }
-           
-           // Update bible passages
-           currentLanguage = lang;
-           displayRandomBiblePassage();
-       }
-
-       // Auto-changing bible passages
-       let currentLanguage = 'pt';
-       function displayRandomBiblePassage() {
-           const passages = biblePassages[currentLanguage];
-           if (!passages) return;
-           
-           const randomPassage = passages[Math.floor(Math.random() * passages.length)];
-           const [text, reference] = randomPassage.split(' - ');
-           
-           const passageElement = document.getElementById('bible-passage');
-           passageElement.innerHTML = `${text}<span class="bible-reference">${reference}</span>`;
-           
-           passageElement.style.animation = 'none';
-           void passageElement.offsetWidth; // Trigger reflow
-           passageElement.style.animation = 'fadeIn 1s ease-out';
-       }
-
-       // Change passage every 8 seconds
-       setInterval(displayRandomBiblePassage, 8000);
-
-       // Initial random passage
-       displayRandomBiblePassage();
-
-       // Audio player
-       document.addEventListener("DOMContentLoaded", function() {
-           let audio = document.getElementById("player");
-           audio.volume = 1.0;
-           audio.muted = true;
-
-           setTimeout(() => {
-               audio.muted = false;
-           }, 3000);
-       });
-
-       // Prayer form submission
-       document.getElementById('prayerForm').addEventListener('submit', function(e) {
-           e.preventDefault();
-
-           const name = document.getElementById('name').value;
-           const prayer = document.getElementById('prayer').value;
-           const parish = document.getElementById('parish').value;
-
-           let message = '';
-           if (currentLanguage === 'pt') {
-               message = `Olá, meu nome é ${name} da paróquia ${parish}. Gostaria de enviar a seguinte intenção de oração: ${prayer}`;
-           } else if (currentLanguage === 'en') {
-               message = `Hello, my name is ${name} from ${parish} parish. I would like to send the following prayer intention: ${prayer}`;
-           } else if (currentLanguage === 'es') {
-               message = `Hola, mi nombre es ${name} de la parroquia ${parish}. Me gustaría enviar la siguiente intención de oración: ${prayer}`;
-           } else if (currentLanguage === 'fr') {
-               message = `Bonjour, je m'appelle ${name} de la paroisse ${parish}. Je voudrais envoyer l'intention de prière suivante: ${prayer}`;
-           } else if (currentLanguage === 'it') {
-               message = `Ciao, mi chiamo ${name} della parrocchia ${parish}. Vorrei inviare la seguente intenzione di preghiera: ${prayer}`;
-           } else if (currentLanguage === 'de') {
-               message = `Hallo, mein Name ist ${name} aus der Pfarrei ${parish}. Ich möchte folgende Gebetsanliegen senden: ${prayer}`;
-           } else if (currentLanguage === 'pl') {
-               message = `Cześć, nazywam się ${name} z parafii ${parish}. Chciałbym wysłać następującą intencję modlitewną: ${prayer}`;
-           }
-
-           const encodedMessage = encodeURIComponent(message);
-           const phoneNumber = "+557381320907";
-           const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-           
-           window.location.href = whatsappLink;
-       });
-
-       // Modal functionality
-       const modal = document.getElementById('modal');
-       const closeModal = document.getElementById('close-modal');
-
-       closeModal.addEventListener('click', function() {
-           modal.style.display = 'none';
-       });
-
-       window.addEventListener('click', function(e) {
-           if (e.target === modal) {
-               modal.style.display = 'none';
-           }
-       });
-
-       // Image gallery functionality would go here
-       // You would need to add images with onclick="showImage('image-url')"
-       function showImage(src) {
-           document.getElementById('img-ampliada').src = src;
-           modal.style.display = 'flex';
-       }
-
-       // Initialize animations
-       document.addEventListener('DOMContentLoaded', function() {
-           const animatedElements = document.querySelectorAll('.banner h1, .banner p, .section');
-           
-           animatedElements.forEach((el, index) => {
-               setTimeout(() => {
-                   el.style.opacity = 1;
-                   el.style.transform = 'translateY(0)';
-               }, index * 200);
-           });
-       });
-
-       // Dark Mode Toggle
-       const darkModeToggle = document.getElementById('dark-mode-toggle');
-       darkModeToggle.addEventListener('click', function() {
-           document.body.classList.toggle('dark-mode');
-           const icon = this.querySelector('i');
-           if (document.body.classList.contains('dark-mode')) {
-               icon.classList.remove('fa-moon');
-               icon.classList.add('fa-sun');
-           } else {
-               icon.classList.remove('fa-sun');
-               icon.classList.add('fa-moon');
-           }
-       });
-
-       // PWA Installation Prompt
-       let deferredPrompt;
-       const installPrompt = document.getElementById('install-prompt');
-       const installBtn = document.getElementById('install-btn');
-       const cancelInstall = document.getElementById('cancel-install');
-
-       window.addEventListener('beforeinstallprompt', (e) => {
-           e.preventDefault();
-           deferredPrompt = e;
-           installPrompt.style.display = 'flex';
-       });
-
-       installBtn.addEventListener('click', async () => {
-           if (deferredPrompt) {
-               deferredPrompt.prompt();
-               const { outcome } = await deferredPrompt.userChoice;
-               if (outcome === 'accepted') {
-                   console.log('User accepted the install prompt');
-               } else {
-                   console.log('User dismissed the install prompt');
-               }
-               deferredPrompt = null;
-               installPrompt.style.display = 'none';
-           }
-       });
-
-       cancelInstall.addEventListener('click', () => {
-           installPrompt.style.display = 'none';
-       });
-
-       // Service Worker Registration for PWA
-       if ('serviceWorker' in navigator) {
-           window.addEventListener('load', () => {
-               navigator.serviceWorker.register('sw.js').then(registration => {
-                   console.log('ServiceWorker registration successful');
-               }, err => {
-                   console.log('ServiceWorker registration failed: ', err);
-               });
-           });
-       }
-
-       // Add to Homescreen for iOS
-       let isIos = () => {
-           const userAgent = window.navigator.userAgent.toLowerCase();
-           return /iphone|ipad|ipod/.test(userAgent);
-       };
-
-       let isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-
-       if (isIos() && !isInStandaloneMode()) {
-           const iosPrompt = document.createElement('div');
-           iosPrompt.innerHTML = `
-               <div style="position: fixed; bottom: 80px; left: 10px; right: 10px; background: #1a237e; color: white; padding: 15px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: space-between; z-index: 1001;">
-                   <span>Adicione este app à sua tela inicial:</span>
-                   <button style="background: white; color: #1a237e; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold;">Instalar</button>
-               </div>
-           `;
-           document.body.appendChild(iosPrompt);
-           
-           iosPrompt.querySelector('button').addEventListener('click', () => {
-               iosPrompt.style.display = 'none';
-           });
-       }
-
-       // Pull to Refresh (simplified)
-       let ptrElement = document.createElement('div');
-       ptrElement.className = 'ptr-element';
-       ptrElement.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i>';
-       document.body.insertBefore(ptrElement, document.body.firstChild);
-
-       let startY;
-       document.addEventListener('touchstart', e => {
-           startY = e.touches[0].clientY;
-       }, {passive: true});
-
-       document.addEventListener('touchmove', e => {
-           const y = e.touches[0].clientY;
-           if (window.scrollY === 0 && y - startY > 50) {
-               ptrElement.style.opacity = '1';
-           }
-       }, {passive: true});
-
-       document.addEventListener('touchend', () => {
-           if (ptrElement.style.opacity === '1') {
-               setTimeout(() => {
-                   ptrElement.style.opacity = '0';
-                   location.reload();
-               }, 1000);
-           }
-       }, {passive: true});
-   </script>
+        // Simulate loading
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.welcome-banner, .quick-actions, .section-title, .bible-card, .prayer-card, .external-links, .about-section');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }, 300);
+        });
+    </script>
 </body>
 </html>

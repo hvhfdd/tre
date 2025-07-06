@@ -2,12 +2,13 @@
 <html lang="pt-BR">
 <head>
    <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
    <meta name="description" content="Terço dos Homens da Paróquia Santo Antônio em Eunápolis - Movimento de evangelização e oração">
    <meta name="keywords" content="Terço eunapolis, Eunapolis, Eunápolis, Terço dos Homens, Rosário">
    <meta name="author" content="João">
    <title>Terço dos Homens Eunápolis</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="manifest" href="manifest.json">
    <style>
        :root {
            --primary-color: #1a237e;
@@ -21,16 +22,19 @@
            --gold-dark: #ffa000;
            --bg-dark: #0d1238;
            --bg-light: rgba(255, 255, 255, 0.1);
+           --iphone-notch: env(safe-area-inset-top);
+           --iphone-bottom: env(safe-area-inset-bottom);
        }
 
        * {
            margin: 0;
            padding: 0;
            box-sizing: border-box;
+           -webkit-tap-highlight-color: transparent;
        }
 
        body {
-           font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
            background: var(--primary-dark);
            color: var(--text-color);
            line-height: 1.7;
@@ -38,20 +42,33 @@
            background-image: 
                radial-gradient(circle at 10% 20%, rgba(25, 50, 150, 0.3) 0%, transparent 20%),
                radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.2) 0%, transparent 20%);
+           padding-top: var(--iphone-notch);
+           padding-bottom: calc(var(--iphone-bottom) + 60px); /* Espaço para a barra de navegação */
        }
 
-       @font-face {
-           font-family: 'Montserrat';
-           src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+       /* iPhone Notch Simulation */
+       .notch {
+           position: fixed;
+           top: 0;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 40%;
+           max-width: 200px;
+           height: 30px;
+           background: #000;
+           border-bottom-left-radius: 15px;
+           border-bottom-right-radius: 15px;
+           z-index: 1100;
+           display: none;
        }
 
        /* Header Styles */
        header {
            background-color: var(--primary-color);
-           padding: 1rem 2rem;
+           padding: 1rem 1rem calc(1rem + var(--iphone-notch));
            position: fixed;
            width: 100%;
-           top: 0;
+           top: var(--iphone-notch);
            z-index: 1000;
            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
            display: flex;
@@ -61,7 +78,7 @@
        }
 
        header.scrolled {
-           padding: 0.5rem 2rem;
+           padding: 0.5rem 1rem calc(0.5rem + var(--iphone-notch));
            background-color: rgba(26, 35, 126, 0.95);
            backdrop-filter: blur(5px);
        }
@@ -69,17 +86,17 @@
        .logo-container {
            display: flex;
            align-items: center;
-           gap: 15px;
+           gap: 10px;
        }
 
        .logo-img {
-           height: 50px;
+           height: 40px;
            width: auto;
            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
        }
 
        .logo-text {
-           font-size: 1.3rem;
+           font-size: 1.1rem;
            font-weight: 700;
            color: var(--text-color);
            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
@@ -87,7 +104,7 @@
 
        /* Hamburger Menu */
        .menu-toggle {
-           display: none;
+           display: flex;
            flex-direction: column;
            justify-content: space-between;
            width: 30px;
@@ -121,35 +138,54 @@
 
        /* Navigation */
        nav {
-           display: flex;
-           align-items: center;
+           position: fixed;
+           top: 0;
+           right: -100%;
+           width: 80%;
+           max-width: 300px;
+           height: 100vh;
+           background: var(--primary-dark);
+           padding: 80px 20px 30px;
+           transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+           box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+           flex-direction: column;
+           justify-content: flex-start;
+           z-index: 900;
+       }
+
+       nav.active {
+           right: 0;
        }
 
        nav ul {
-           display: flex;
+           flex-direction: column;
+           width: 100%;
            list-style: none;
        }
 
        nav ul li {
-           margin: 0 8px;
-           position: relative;
+           margin: 10px 0;
+           width: 100%;
        }
 
        nav ul li a {
            color: var(--text-color);
            text-decoration: none;
-           padding: 8px 12px;
-           border-radius: 4px;
+           padding: 12px 15px;
+           border-radius: 8px;
            transition: all 0.3s ease;
            font-weight: 500;
            display: flex;
            align-items: center;
-           gap: 6px;
+           gap: 10px;
            font-size: 0.95rem;
+           background: rgba(255,255,255,0.1);
        }
 
        nav ul li a i {
            font-size: 1rem;
+           width: 20px;
+           text-align: center;
        }
 
        nav ul li a:hover {
@@ -160,29 +196,32 @@
 
        /* Language Selector */
        .language-selector {
-           margin-left: 20px;
+           margin-top: 30px;
            position: relative;
+           width: 100%;
        }
 
        .language-btn {
-           background: transparent;
+           background: rgba(255,255,255,0.1);
            border: none;
            color: var(--text-color);
            cursor: pointer;
            display: flex;
            align-items: center;
-           padding: 8px 12px;
-           border-radius: 4px;
+           padding: 12px 15px;
+           border-radius: 8px;
            transition: all 0.3s;
+           width: 100%;
        }
 
        .language-btn:hover {
-           background: rgba(255, 255, 255, 0.1);
+           background: var(--secondary-color);
+           color: var(--text-dark);
        }
 
        .language-btn img {
            width: 20px;
-           margin-right: 5px;
+           margin-right: 10px;
            border-radius: 2px;
        }
 
@@ -194,7 +233,7 @@
            border-radius: 8px;
            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
            display: none;
-           min-width: 160px;
+           width: 100%;
            z-index: 1000;
            overflow: hidden;
            border: 1px solid rgba(255,255,255,0.1);
@@ -208,11 +247,12 @@
        .language-dropdown a {
            display: flex;
            align-items: center;
-           padding: 10px 15px;
+           padding: 12px 15px;
            color: var(--text-color);
            text-decoration: none;
            transition: all 0.3s;
            font-size: 0.9rem;
+           background: rgba(255,255,255,0.05);
        }
 
        .language-dropdown a:hover {
@@ -229,28 +269,27 @@
 
        /* Main Content */
        main {
-           margin-top: 100px;
-           padding: 20px;
+           margin-top: calc(70px + var(--iphone-notch));
+           padding: 15px;
        }
 
        /* Banner */
        .banner {
            position: relative;
            width: 100%;
-           height: 80vh;
-           min-height: 500px;
+           height: 60vh;
+           min-height: 300px;
            background-image: url('img/2b-Logo_THMR_Brasil_Azul2019.png');
            background-size: cover;
            background-position: center;
-           background-attachment: fixed;
            display: flex;
            flex-direction: column;
            align-items: center;
            justify-content: center;
            color: var(--text-color);
            text-align: center;
-           padding: 20px;
-           margin-bottom: 40px;
+           padding: 15px;
+           margin-bottom: 20px;
            border-radius: 15px;
            overflow: hidden;
        }
@@ -268,8 +307,8 @@
        .banner-content {
            position: relative;
            z-index: 1;
-           max-width: 900px;
-           padding: 30px;
+           width: 100%;
+           padding: 20px;
            background: rgba(0, 0, 0, 0.4);
            border-radius: 15px;
            backdrop-filter: blur(5px);
@@ -277,8 +316,8 @@
        }
 
        .banner h1 {
-           font-size: 3rem;
-           margin-bottom: 20px;
+           font-size: 1.8rem;
+           margin-bottom: 15px;
            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
            animation: fadeInUp 1s ease-out;
            color: var(--gold-light);
@@ -286,8 +325,8 @@
        }
 
        .banner p {
-           font-size: 1.2rem;
-           margin-bottom: 30px;
+           font-size: 1rem;
+           margin-bottom: 20px;
            animation: fadeInUp 1s ease-out 0.3s forwards;
            opacity: 0;
        }
@@ -295,8 +334,8 @@
        /* Rosary Decoration */
        .rosary-decoration {
            position: absolute;
-           width: 150px;
-           height: 150px;
+           width: 100px;
+           height: 100px;
            opacity: 0.2;
            z-index: 0;
        }
@@ -340,8 +379,8 @@
        .section {
            background: var(--bg-light);
            border-radius: 15px;
-           padding: 30px;
-           margin-bottom: 40px;
+           padding: 20px;
+           margin-bottom: 20px;
            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
            backdrop-filter: blur(5px);
            border: 1px solid rgba(255,255,255,0.1);
@@ -361,13 +400,13 @@
 
        .section h2 {
            color: var(--secondary-color);
-           margin-bottom: 25px;
-           font-size: 2rem;
+           margin-bottom: 20px;
+           font-size: 1.5rem;
            position: relative;
-           padding-bottom: 15px;
+           padding-bottom: 10px;
            display: flex;
            align-items: center;
-           gap: 15px;
+           gap: 10px;
        }
 
        .section h2::after {
@@ -375,23 +414,23 @@
            position: absolute;
            bottom: 0;
            left: 0;
-           width: 80px;
+           width: 60px;
            height: 3px;
            background: var(--accent-color);
            border-radius: 3px;
        }
 
        .section h2 i {
-           font-size: 1.5rem;
+           font-size: 1.3rem;
            color: var(--accent-color);
        }
 
        /* Bible Passage */
        .bible-passage {
            font-style: italic;
-           font-size: 1.3rem;
-           margin: 25px 0;
-           padding: 20px;
+           font-size: 1.1rem;
+           margin: 20px 0;
+           padding: 15px;
            background: rgba(0, 0, 0, 0.3);
            border-left: 4px solid var(--secondary-color);
            border-radius: 0 8px 8px 0;
@@ -403,9 +442,9 @@
        .bible-passage::before {
            content: '"';
            position: absolute;
-           top: 10px;
-           left: 10px;
-           font-size: 4rem;
+           top: 5px;
+           left: 5px;
+           font-size: 3rem;
            color: rgba(255, 255, 255, 0.1);
            font-family: serif;
            line-height: 1;
@@ -416,22 +455,22 @@
            text-align: right;
            margin-top: 10px;
            font-style: normal;
-           font-size: 1rem;
+           font-size: 0.9rem;
            color: var(--accent-color);
        }
 
        /* Quick Links */
        .quick-links {
            display: grid;
-           grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-           gap: 20px;
-           margin: 40px 0;
+           grid-template-columns: repeat(2, 1fr);
+           gap: 15px;
+           margin: 20px 0;
        }
 
        .quick-link {
            background: var(--primary-color);
            border-radius: 12px;
-           padding: 25px 15px;
+           padding: 20px 10px;
            text-align: center;
            transition: all 0.4s ease;
            display: flex;
@@ -457,8 +496,8 @@
        }
 
        .quick-link:hover {
-           transform: translateY(-10px);
-           box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+           transform: translateY(-5px);
+           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
        }
 
        .quick-link:hover::before {
@@ -466,10 +505,10 @@
        }
 
        .quick-link img {
-           width: 80px;
-           height: 80px;
+           width: 60px;
+           height: 60px;
            object-fit: contain;
-           margin-bottom: 15px;
+           margin-bottom: 10px;
            transition: transform 0.3s;
            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
        }
@@ -482,7 +521,7 @@
        .quick-link p {
            font-weight: 600;
            color: var(--text-color);
-           font-size: 1.1rem;
+           font-size: 0.95rem;
            margin-top: 10px;
        }
 
@@ -490,8 +529,8 @@
        .prayer-form {
            background: var(--bg-light);
            border-radius: 15px;
-           padding: 30px;
-           margin: 40px 0;
+           padding: 20px;
+           margin: 20px 0;
            position: relative;
            overflow: hidden;
        }
@@ -502,20 +541,20 @@
            top: 50%;
            left: 50%;
            transform: translate(-50%, -50%);
-           font-size: 15rem;
+           font-size: 10rem;
            color: rgba(255, 255, 255, 0.03);
            z-index: 0;
        }
 
        .form-group {
-           margin-bottom: 25px;
+           margin-bottom: 20px;
            position: relative;
            z-index: 1;
        }
 
        .form-group label {
            display: block;
-           margin-bottom: 10px;
+           margin-bottom: 8px;
            font-weight: 600;
            color: var(--gold-light);
        }
@@ -524,7 +563,7 @@
        .form-group textarea,
        .form-group select {
            width: 100%;
-           padding: 15px;
+           padding: 12px;
            border: 1px solid rgba(255, 255, 255, 0.2);
            border-radius: 8px;
            background: rgba(0, 0, 0, 0.3);
@@ -543,7 +582,7 @@
        }
 
        .form-group textarea {
-           min-height: 150px;
+           min-height: 120px;
            resize: vertical;
        }
 
@@ -552,7 +591,7 @@
            background: linear-gradient(135deg, var(--secondary-color), var(--gold-dark));
            color: var(--text-dark);
            border: none;
-           padding: 15px 30px;
+           padding: 12px 25px;
            border-radius: 8px;
            cursor: pointer;
            font-size: 1rem;
@@ -607,17 +646,17 @@
            background: linear-gradient(to right, var(--primary-dark), var(--primary-color));
            color: var(--text-color);
            text-align: center;
-           padding: 40px 20px;
-           margin-top: 80px;
+           padding: 30px 15px calc(30px + var(--iphone-bottom));
+           margin-top: 40px;
            position: relative;
        }
 
        .footer-wave {
            position: absolute;
-           top: -50px;
+           top: -30px;
            left: 0;
            width: 100%;
-           height: 50px;
+           height: 30px;
            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%231a237e" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%231a237e" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%231a237e"/></svg>');
            background-size: cover;
        }
@@ -631,34 +670,34 @@
        }
 
        .footer-logo {
-           width: 120px;
-           margin-bottom: 20px;
+           width: 100px;
+           margin-bottom: 15px;
            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
        }
 
        .footer-text {
            max-width: 700px;
-           margin-bottom: 30px;
-           font-size: 0.95rem;
+           margin-bottom: 20px;
+           font-size: 0.9rem;
            opacity: 0.9;
        }
 
        .social-links {
            display: flex;
-           margin: 25px 0;
-           gap: 20px;
+           margin: 20px 0;
+           gap: 15px;
        }
 
        .social-links a {
            display: flex;
            align-items: center;
            justify-content: center;
-           width: 50px;
-           height: 50px;
+           width: 45px;
+           height: 45px;
            background: rgba(255,255,255,0.1);
            color: var(--text-color);
            border-radius: 50%;
-           font-size: 1.3rem;
+           font-size: 1.2rem;
            transition: all 0.3s;
            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
        }
@@ -671,8 +710,8 @@
        }
 
        .copyright {
-           margin-top: 30px;
-           font-size: 0.9rem;
+           margin-top: 20px;
+           font-size: 0.8rem;
            opacity: 0.7;
        }
 
@@ -689,6 +728,7 @@
            justify-content: center;
            align-items: center;
            animation: fadeIn 0.3s ease-out;
+           padding: var(--iphone-notch) 0 var(--iphone-bottom);
        }
 
        .modal-content {
@@ -708,15 +748,15 @@
 
        .close-modal {
            position: absolute;
-           top: 20px;
-           right: 20px;
+           top: 15px;
+           right: 15px;
            background: var(--secondary-color);
            color: var(--text-dark);
            border: none;
-           width: 50px;
-           height: 50px;
+           width: 40px;
+           height: 40px;
            border-radius: 50%;
-           font-size: 1.8rem;
+           font-size: 1.5rem;
            cursor: pointer;
            display: flex;
            justify-content: center;
@@ -730,174 +770,207 @@
            background: var(--gold-dark);
        }
 
-       /* Responsive Styles */
-       @media (max-width: 1200px) {
-           .banner h1 {
-               font-size: 2.5rem;
+       /* Floating Bottom Navigation */
+       .bottom-nav {
+           position: fixed;
+           bottom: var(--iphone-bottom);
+           left: 0;
+           width: 100%;
+           background: rgba(26, 35, 126, 0.95);
+           backdrop-filter: blur(10px);
+           display: flex;
+           justify-content: space-around;
+           padding: 10px 0;
+           box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+           z-index: 1000;
+           border-top: 1px solid rgba(255,255,255,0.1);
+       }
+
+       .bottom-nav a {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           text-decoration: none;
+           color: var(--text-color);
+           font-size: 0.7rem;
+           transition: all 0.3s;
+           padding: 5px 10px;
+           border-radius: 10px;
+       }
+
+       .bottom-nav a i {
+           font-size: 1.3rem;
+           margin-bottom: 3px;
+       }
+
+       .bottom-nav a span {
+           font-size: 0.7rem;
+       }
+
+       .bottom-nav a.active, .bottom-nav a:hover {
+           color: var(--secondary-color);
+           transform: translateY(-5px);
+       }
+
+       /* PWA Install Prompt */
+       .install-prompt {
+           position: fixed;
+           bottom: calc(60px + var(--iphone-bottom));
+           left: 50%;
+           transform: translateX(-50%);
+           background: var(--primary-color);
+           color: var(--text-color);
+           padding: 15px;
+           border-radius: 10px;
+           box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+           display: flex;
+           align-items: center;
+           gap: 10px;
+           z-index: 1500;
+           animation: slideUp 0.5s ease-out;
+           max-width: 90%;
+       }
+
+       .install-prompt button {
+           background: var(--secondary-color);
+           color: var(--text-dark);
+           border: none;
+           padding: 8px 15px;
+           border-radius: 5px;
+           font-weight: bold;
+           cursor: pointer;
+       }
+
+       .install-prompt button:last-child {
+           background: transparent;
+           color: var(--text-color);
+           border: 1px solid var(--text-color);
+       }
+
+       @keyframes slideUp {
+           from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+           to { transform: translateX(-50%) translateY(0); opacity: 1; }
+       }
+
+       /* Pull to Refresh */
+       .ptr-element {
+           position: absolute;
+           top: -50px;
+           left: 0;
+           width: 100%;
+           height: 50px;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           color: var(--text-color);
+           opacity: 0;
+       }
+
+       /* Splash Screen for PWA */
+       .splash {
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background: var(--primary-dark);
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           z-index: 9999;
+           animation: fadeOut 1s ease-in-out 2s forwards;
+       }
+
+       .splash-logo {
+           width: 150px;
+           height: 150px;
+           margin-bottom: 20px;
+           animation: pulse 1.5s infinite;
+       }
+
+       .splash-text {
+           color: var(--text-color);
+           font-size: 1.5rem;
+           font-weight: bold;
+           margin-top: 20px;
+       }
+
+       @keyframes fadeOut {
+           to { opacity: 0; visibility: hidden; }
+       }
+
+       /* Dark Mode Toggle */
+       .dark-mode-toggle {
+           position: fixed;
+           bottom: calc(60px + var(--iphone-bottom) + 10px);
+           right: 10px;
+           width: 40px;
+           height: 40px;
+           background: rgba(255,255,255,0.2);
+           border-radius: 50%;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           z-index: 1001;
+           cursor: pointer;
+           transition: all 0.3s;
+       }
+
+       .dark-mode-toggle:hover {
+           background: var(--secondary-color);
+           transform: scale(1.1);
+       }
+
+       .dark-mode-toggle i {
+           font-size: 1.2rem;
+           color: var(--text-color);
+       }
+
+       /* iPhone-specific styles */
+       @supports (padding: max(0px)) {
+           body {
+               padding-top: max(var(--iphone-notch), 15px);
+               padding-bottom: calc(max(var(--iphone-bottom), 15px) + 60px);
+           }
+           
+           header {
+               padding-top: max(1rem, var(--iphone-notch));
+               padding-bottom: max(1rem, var(--iphone-notch));
+           }
+           
+           header.scrolled {
+               padding-top: max(0.5rem, var(--iphone-notch));
+               padding-bottom: max(0.5rem, var(--iphone-notch));
+           }
+           
+           .notch {
+               display: block;
            }
        }
 
-       @media (max-width: 992px) {
-           .menu-toggle {
-               display: flex;
+       /* Responsive Adjustments */
+       @media (min-width: 768px) {
+           .bottom-nav {
+               display: none;
            }
-
-           nav {
-               position: fixed;
-               top: 0;
-               right: -100%;
-               width: 300px;
-               height: 100vh;
-               background: var(--primary-dark);
-               padding: 100px 30px 30px;
-               transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-               box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
-               flex-direction: column;
-               justify-content: flex-start;
-               z-index: 900;
-           }
-
-           nav.active {
-               right: 0;
-           }
-
-           nav ul {
-               flex-direction: column;
-               width: 100%;
-           }
-
-           nav ul li {
-               margin: 10px 0;
-               width: 100%;
-           }
-
-           nav ul li a {
-               width: 100%;
-               padding: 12px 15px;
-           }
-
-           .language-selector {
-               margin-left: 0;
-               margin-top: 30px;
-               width: 100%;
-           }
-
-           .language-btn {
-               width: 100%;
-               justify-content: center;
-           }
-
-           .language-dropdown {
-               right: auto;
-               left: 0;
-               width: 100%;
-           }
-
-           .banner {
-               height: 70vh;
-               min-height: 400px;
-           }
-
-           .banner h1 {
-               font-size: 2.2rem;
-           }
-
-           .quick-links {
-               grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-           }
-       }
-
-       @media (max-width: 768px) {
-           .banner {
-               height: 60vh;
-               background-attachment: scroll;
-           }
-
-           .banner h1 {
-               font-size: 2rem;
-           }
-
-           .banner-content {
-               padding: 20px;
-           }
-
-           .section h2 {
-               font-size: 1.7rem;
-           }
-
-           .bible-passage {
-               font-size: 1.2rem;
-               padding: 15px;
-           }
-
-           .quick-link {
-               padding: 20px 10px;
-           }
-
-           .quick-link img {
-               width: 60px;
-               height: 60px;
-           }
-
-           .footer-wave {
-               top: -30px;
-               height: 30px;
-           }
-       }
-
-       @media (max-width: 576px) {
-           .logo-text {
-               font-size: 1.1rem;
-           }
-
-           .logo-img {
-               height: 40px;
-           }
-
-           .banner {
-               height: 50vh;
-               min-height: 350px;
-           }
-
-           .banner h1 {
-               font-size: 1.8rem;
-           }
-
-           .section {
-               padding: 25px 20px;
-           }
-
-           .section h2 {
-               font-size: 1.5rem;
-           }
-
-           .quick-links {
-               grid-template-columns: 1fr 1fr;
-               gap: 15px;
-           }
-
-           .quick-link p {
-               font-size: 1rem;
-           }
-
-           .btn {
-               padding: 12px 20px;
-               font-size: 0.9rem;
-           }
-
-           .footer-text {
-               font-size: 0.85rem;
-           }
-
-           .social-links a {
-               width: 45px;
-               height: 45px;
-               font-size: 1.1rem;
+           
+           body {
+               padding-bottom: var(--iphone-bottom);
            }
        }
    </style>
 </head>
 <body>
+   <!-- iPhone Notch Simulation -->
+   <div class="notch"></div>
+
+   <!-- Splash Screen for PWA -->
+   <div class="splash">
+       <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Logo Terço dos Homens" class="splash-logo">
+       <div class="splash-text">Terço dos Homens</div>
+   </div>
+
    <!-- Header with Hamburger Menu -->
    <header id="main-header">
        <div class="logo-container">
@@ -913,7 +986,7 @@
        
        <nav id="nav-menu">
            <ul>
-               <li><a href="https://hvhfdd.github.io/calendario/"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
+               <li><a href="https://hvhfdd.github.io/calendario/" class="active"><i class="fas fa-calendar-alt"></i> Calendário</a></li>
                <li><a href="https://hvhfdd.github.io/ora-otre-o/"><i class="fas fa-pray"></i> Oração</a></li>
                <li><a href="https://domusweb.site/"><i class="fas fa-store"></i> Loja</a></li>
                <li><a href="https://hvhfdd.github.io/tre-oflix"><i class="fas fa-film"></i> Filmes</a></li>
@@ -1011,7 +1084,7 @@
            
            <!-- Dayspedia Widget -->
            <div class="dayspedia-widget">
-               <iframe width='371' height='250' style='padding:0!important;margin:30px auto!important;border:none!important;background:none!important;background:transparent!important' marginheight='0' marginwidth='0' frameborder='0' scrolling='no' comment='/*defined*/' src='https://dayspedia.com/if/digit/?v=1&iframe=eyJ3LTEyIjp0cnVlLCJ3LTExIjp0cnVlLCJ3LTEzIjp0cnVlLCJ3LTE0IjpmYWxzZSwidy0xNSI6dHJ1ZSwidy0xMTAiOnRydWUsInctd2lkdGgtMCI6ZmFsc2UsInctd2lkdGgtMSI6dHJ1ZSwidy13aWR0aC0yIjpmYWxzZSwidy0xNiI6IjI0cHgiLCJ3LTE5IjoiNDgiLCJ3LTE3IjoiMjQiLCJ3LTIxIjp0cnVlLCJiZ2ltYWdlIjozLCJiZ2ltYWdlU2V0Ijp0cnVlLCJ3LTIxYzAiOiIjZmZmZmZmIiwidy0wIjp0cnVlLCJ3LTMiOnRydWUsInctM2MwIjoiI2ZmZmZmZiIsInctM2IwIjoiMSIsInctNiI6IiNmY2ZjZmMiLCJ3LTIwIjp0cnVlLCJ3LTQiOiIjZmZmZmZmIiwidy0xOCI6ZmFsc2UsInctd2lkdGgtMmMtMCI6IjMwMCIsInctMTE1Ijp0cnVlfQ==&lang=pt&cityid=13528'></iframe>
+               <iframe width='100%' height='250' style='padding:0!important;margin:20px auto!important;border:none!important;background:none!important;background:transparent!important' marginheight='0' marginwidth='0' frameborder='0' scrolling='no' comment='/*defined*/' src='https://dayspedia.com/if/digit/?v=1&iframe=eyJ3LTEyIjp0cnVlLCJ3LTExIjp0cnVlLCJ3LTEzIjp0cnVlLCJ3LTE0IjpmYWxzZSwidy0xNSI6dHJ1ZSwidy0xMTAiOnRydWUsInctd2lkdGgtMCI6ZmFsc2UsInctd2lkdGgtMSI6dHJ1ZSwidy13aWR0aC0yIjpmYWxzZSwidy0xNiI6IjI0cHgiLCJ3LTE5IjoiNDgiLCJ3LTE3IjoiMjQiLCJ3LTIxIjp0cnVlLCJiZ2ltYWdlIjozLCJiZ2ltYWdlU2V0Ijp0cnVlLCJ3LTIxYzAiOiIjZmZmZmZmIiwidy0wIjp0cnVlLCJ3LTMiOnRydWUsInctM2MwIjoiI2ZmZmZmZiIsInctM2IwIjoiMSIsInctNiI6IiNmY2ZjZmMiLCJ3LTIwIjp0cnVlLCJ3LTQiOiIjZmZmZmZmIiwidy0xOCI6ZmFsc2UsInctd2lkdGgtMmMtMCI6IjMwMCIsInctMTE1Ijp0cnVlfQ==&lang=pt&cityid=13528'></iframe>
            </div>
        </section>
 
@@ -1047,7 +1120,7 @@
        <!-- Visitor Counter -->
        <section class="section">
            <h2><i class="fas fa-users"></i> <span id="visitors-title">Nossos Visitantes</span></h2>
-           <a href="https://info.flagcounter.com/W8DY"><img src="https://s05.flagcounter.com/count2/W8DY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_Visitantes+que+viram+nosso+site/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+           <a href="https://info.flagcounter.com/W8DY"><img src="https://s05.flagcounter.com/count2/W8DY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_Visitantes+que+viram+nosso+site/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" style="width:100%"></a>
        </section>
 
        <!-- Audio Player -->
@@ -1065,9 +1138,41 @@
            <img src="img/2b-Logo_THMR_Brasil_Azul2019.png" alt="Logo Terço dos Homens" class="footer-logo">
            <p class="footer-text" id="footer-text">Junte-se a nós todas as segundas-feiras às 19h para rezar o terço em comunidade. Todos os homens são bem-vindos!</p>
          
+           <div class="social-links">
+               <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+               <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+               <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+               <a href="https://whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
+           </div>
+           
            <p class="copyright">&copy; <span id="current-year">2025</span> <span id="copyright-text">Terço dos Homens Eunápolis - Todos os direitos reservados</span></p>
        </div>
    </footer>
+
+   <!-- Floating Bottom Navigation -->
+   <div class="bottom-nav">
+       <a href="https://hvhfdd.github.io/calendario/" class="active">
+           <i class="fas fa-calendar-alt"></i>
+           <span id="nav-calendar">Calendário</span>
+       </a>
+       <a href="https://hvhfdd.github.io/ora-otre-o/">
+           <i class="fas fa-pray"></i>
+           <span id="nav-prayer">Oração</span>
+       </a>
+       <a href="https://hvhfdd.github.io/litogia/">
+           <i class="fas fa-bible"></i>
+           <span id="nav-liturgy">Liturgia</span>
+       </a>
+       <a href="https://hvhfdd.github.io/galeria/">
+           <i class="fas fa-images"></i>
+           <span id="nav-gallery">Galeria</span>
+       </a>
+   </div>
+
+   <!-- Dark Mode Toggle -->
+   <div class="dark-mode-toggle" id="dark-mode-toggle">
+       <i class="fas fa-moon"></i>
+   </div>
 
    <!-- Modal for Images -->
    <div id="modal" class="modal">
@@ -1077,6 +1182,15 @@
        </div>
    </div>
 
+   <!-- PWA Install Prompt -->
+   <div class="install-prompt" id="install-prompt" style="display: none;">
+       <i class="fas fa-download"></i>
+       <span id="install-text">Instalar o aplicativo Terço dos Homens?</span>
+       <button id="install-btn">Instalar</button>
+       <button id="cancel-install">Depois</button>
+   </div>
+
+   <!-- Manifest for PWA -->
    <script>
        // Current year for footer
        document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -1153,7 +1267,12 @@
                'submit-btn': 'Enviar Intenção',
                'visitors-title': 'Nossos Visitantes',
                'footer-text': 'Junte-se a nós todas as segundas-feiras às 19h para rezar o terço em comunidade. Todos os homens são bem-vindos!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Todos os direitos reservados'
+               'copyright-text': 'Terço dos Homens Eunápolis - Todos os direitos reservados',
+               'nav-calendar': 'Calendário',
+               'nav-prayer': 'Oração',
+               'nav-liturgy': 'Liturgia',
+               'nav-gallery': 'Galeria',
+               'install-text': 'Instalar o aplicativo Terço dos Homens?'
            },
            'en': {
                'welcome-text': 'Welcome to Terço dos Homens Gusmão!',
@@ -1175,7 +1294,12 @@
                'submit-btn': 'Send Intention',
                'visitors-title': 'Our Visitors',
                'footer-text': 'Join us every Monday at 7pm to pray the rosary in community. All men are welcome!',
-               'copyright-text': 'Terço dos Homens Eunápolis - All rights reserved'
+               'copyright-text': 'Terço dos Homens Eunápolis - All rights reserved',
+               'nav-calendar': 'Calendar',
+               'nav-prayer': 'Prayer',
+               'nav-liturgy': 'Liturgy',
+               'nav-gallery': 'Gallery',
+               'install-text': 'Install the Rosary for Men app?'
            },
            'es': {
                'welcome-text': '¡Bienvenido a Terço dos Homens Gusmão!',
@@ -1197,7 +1321,12 @@
                'submit-btn': 'Enviar Intención',
                'visitors-title': 'Nuestros Visitantes',
                'footer-text': 'Únase a nosotros todos los lunes a las 7pm para rezar el rosario en comunidad. ¡Todos los hombres son bienvenidos!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Todos los derechos reservados'
+               'copyright-text': 'Terço dos Homens Eunápolis - Todos los derechos reservados',
+               'nav-calendar': 'Calendario',
+               'nav-prayer': 'Oración',
+               'nav-liturgy': 'Liturgia',
+               'nav-gallery': 'Galería',
+               'install-text': '¿Instalar la aplicación Rosario para Hombres?'
            },
            'fr': {
                'welcome-text': 'Bienvenue à Terço dos Homens Gusmão!',
@@ -1219,7 +1348,12 @@
                'submit-btn': 'Envoyer Intention',
                'visitors-title': 'Nos Visiteurs',
                'footer-text': 'Rejoignez-nous tous les lundis à 19h pour prier le chapelet en communauté. Tous les hommes sont les bienvenus !',
-               'copyright-text': 'Terço dos Homens Eunápolis - Tous droits réservés'
+               'copyright-text': 'Terço dos Homens Eunápolis - Tous droits réservés',
+               'nav-calendar': 'Calendrier',
+               'nav-prayer': 'Prière',
+               'nav-liturgy': 'Liturgie',
+               'nav-gallery': 'Galerie',
+               'install-text': 'Installer l\'application Chapelet pour Hommes?'
            },
            'it': {
                'welcome-text': 'Benvenuti a Terço dos Homens Gusmão!',
@@ -1241,7 +1375,12 @@
                'submit-btn': 'Invia Intenzione',
                'visitors-title': 'I Nostri Visitatori',
                'footer-text': 'Unisciti a noi ogni lunedì alle 19:00 per pregare il rosario in comunità. Tutti gli uomini sono benvenuti!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Tutti i diritti riservati'
+               'copyright-text': 'Terço dos Homens Eunápolis - Tutti i diritti riservati',
+               'nav-calendar': 'Calendario',
+               'nav-prayer': 'Preghiera',
+               'nav-liturgy': 'Liturgia',
+               'nav-gallery': 'Galleria',
+               'install-text': 'Installare l\'app Rosario per Uomini?'
            },
            'de': {
                'welcome-text': 'Willkommen bei Terço dos Homens Gusmão!',
@@ -1263,7 +1402,12 @@
                'submit-btn': 'Anliegen senden',
                'visitors-title': 'Unsere Besucher',
                'footer-text': 'Treffen Sie uns jeden Montag um 19 Uhr, um gemeinsam den Rosenkranz zu beten. Alle Männer sind willkommen!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Alle Rechte vorbehalten'
+               'copyright-text': 'Terço dos Homens Eunápolis - Alle Rechte vorbehalten',
+               'nav-calendar': 'Kalender',
+               'nav-prayer': 'Gebet',
+               'nav-liturgy': 'Liturgie',
+               'nav-gallery': 'Galerie',
+               'install-text': 'Die Rosenkranz für Männer App installieren?'
            },
            'pl': {
                'welcome-text': 'Witamy w Terço dos Homens Gusmão!',
@@ -1285,7 +1429,12 @@
                'submit-btn': 'Wyślij Intencję',
                'visitors-title': 'Nasi Goście',
                'footer-text': 'Dołącz do nas w każdy poniedziałek o 19:00, aby wspólnie odmówić różaniec. Wszyscy mężczyźni są mile widziani!',
-               'copyright-text': 'Terço dos Homens Eunápolis - Wszelkie prawa zastrzeżone'
+               'copyright-text': 'Terço dos Homens Eunápolis - Wszelkie prawa zastrzeżone',
+               'nav-calendar': 'Kalendarz',
+               'nav-prayer': 'Modlitwa',
+               'nav-liturgy': 'Liturgia',
+               'nav-gallery': 'Galeria',
+               'install-text': 'Zainstalować aplikację Różaniec dla Mężczyzn?'
            }
        };
 
@@ -1510,6 +1659,111 @@
                }, index * 200);
            });
        });
+
+       // Dark Mode Toggle
+       const darkModeToggle = document.getElementById('dark-mode-toggle');
+       darkModeToggle.addEventListener('click', function() {
+           document.body.classList.toggle('dark-mode');
+           const icon = this.querySelector('i');
+           if (document.body.classList.contains('dark-mode')) {
+               icon.classList.remove('fa-moon');
+               icon.classList.add('fa-sun');
+           } else {
+               icon.classList.remove('fa-sun');
+               icon.classList.add('fa-moon');
+           }
+       });
+
+       // PWA Installation Prompt
+       let deferredPrompt;
+       const installPrompt = document.getElementById('install-prompt');
+       const installBtn = document.getElementById('install-btn');
+       const cancelInstall = document.getElementById('cancel-install');
+
+       window.addEventListener('beforeinstallprompt', (e) => {
+           e.preventDefault();
+           deferredPrompt = e;
+           installPrompt.style.display = 'flex';
+       });
+
+       installBtn.addEventListener('click', async () => {
+           if (deferredPrompt) {
+               deferredPrompt.prompt();
+               const { outcome } = await deferredPrompt.userChoice;
+               if (outcome === 'accepted') {
+                   console.log('User accepted the install prompt');
+               } else {
+                   console.log('User dismissed the install prompt');
+               }
+               deferredPrompt = null;
+               installPrompt.style.display = 'none';
+           }
+       });
+
+       cancelInstall.addEventListener('click', () => {
+           installPrompt.style.display = 'none';
+       });
+
+       // Service Worker Registration for PWA
+       if ('serviceWorker' in navigator) {
+           window.addEventListener('load', () => {
+               navigator.serviceWorker.register('sw.js').then(registration => {
+                   console.log('ServiceWorker registration successful');
+               }, err => {
+                   console.log('ServiceWorker registration failed: ', err);
+               });
+           });
+       }
+
+       // Add to Homescreen for iOS
+       let isIos = () => {
+           const userAgent = window.navigator.userAgent.toLowerCase();
+           return /iphone|ipad|ipod/.test(userAgent);
+       };
+
+       let isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+       if (isIos() && !isInStandaloneMode()) {
+           const iosPrompt = document.createElement('div');
+           iosPrompt.innerHTML = `
+               <div style="position: fixed; bottom: 80px; left: 10px; right: 10px; background: #1a237e; color: white; padding: 15px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: space-between; z-index: 1001;">
+                   <span>Adicione este app à sua tela inicial:</span>
+                   <button style="background: white; color: #1a237e; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold;">Instalar</button>
+               </div>
+           `;
+           document.body.appendChild(iosPrompt);
+           
+           iosPrompt.querySelector('button').addEventListener('click', () => {
+               iosPrompt.style.display = 'none';
+           });
+       }
+
+       // Pull to Refresh (simplified)
+       let ptrElement = document.createElement('div');
+       ptrElement.className = 'ptr-element';
+       ptrElement.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i>';
+       document.body.insertBefore(ptrElement, document.body.firstChild);
+
+       let startY;
+       document.addEventListener('touchstart', e => {
+           startY = e.touches[0].clientY;
+       }, {passive: true});
+
+       document.addEventListener('touchmove', e => {
+           const y = e.touches[0].clientY;
+           if (window.scrollY === 0 && y - startY > 50) {
+               ptrElement.style.opacity = '1';
+           }
+       }, {passive: true});
+
+       document.addEventListener('touchend', () => {
+           if (ptrElement.style.opacity === '1') {
+               setTimeout(() => {
+                   ptrElement.style.opacity = '0';
+                   location.reload();
+               }, 1000);
+           }
+       }, {passive: true});
    </script>
 </body>
 </html>

@@ -579,7 +579,7 @@
             transform: translateX(5px);
         }
 
-        /* Store Section */
+        /* Loja Section */
         .store-section {
             background: var(--white);
             border-radius: var(--border-radius);
@@ -606,69 +606,31 @@
             transition: var(--transition);
         }
 
-        .store-container {
-            position: relative;
-            width: 100%;
-            height: 600px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            border: 1px solid var(--medium-gray);
+        .store-link-container {
+            text-align: center;
+            margin-top: 30px;
         }
 
-        .store-frame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: var(--white);
-        }
-
-        .store-controls {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.9);
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-            border-top: 1px solid var(--medium-gray);
-        }
-
-        .store-url {
-            flex-grow: 1;
-            padding: 8px 15px;
-            border: 1px solid var(--medium-gray);
+        .store-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--white);
+            padding: 15px 30px;
             border-radius: 50px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            margin-right: 10px;
-        }
-
-        .store-nav-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
             transition: var(--transition);
-            margin: 0 5px;
+            box-shadow: 0 5px 20px rgba(26, 78, 138, 0.3);
+            font-size: 1.1rem;
         }
 
-        .store-nav-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+        .store-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26, 78, 138, 0.4);
         }
 
-        .store-nav-btn i {
-            font-size: 1rem;
+        .store-link i {
+            margin-right: 10px;
         }
 
         /* About Section */
@@ -916,54 +878,6 @@
             border-radius: 50%;
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 800px;
-            height: 80vh;
-            overflow: hidden;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-header {
-            padding: 15px 20px;
-            background: var(--primary-color);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            flex-grow: 1;
-            position: relative;
-        }
-
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -1053,7 +967,7 @@
         <ul>
             <li><a href="https://hvhfdd.github.io/calendario/"><i class="fas fa-calendar-check"></i> Agenda</a></li>
             <li><a href="https://hvhfdd.github.io/litogia/"><i class="fas fa-book-bible"></i> Liturgia Diária</a></li>
-            <li><a href="#" id="open-store"><i class="fas fa-store"></i> Loja</a></li>
+            <li><a href="https://domusweb.site" target="_blank"><i class="fas fa-store"></i> Loja</a></li>
             <li><a href="https://hvhfdd.github.io/galeria/"><i class="fas fa-photo-video"></i> Galeria</a></li>
         </ul>
     </nav>
@@ -1084,7 +998,7 @@
                 <i class="fas fa-store"></i>
                 <h3>Nossa Loja</h3>
                 <p>Adquira produtos religiosos</p>
-                <button class="action-btn" id="open-store-btn">Visitar Loja</button>
+                <button class="action-btn" onclick="window.open('https://domusweb.site', '_blank')">Visitar Loja</button>
             </div>
             <div class="action-card">
                 <i class="fas fa-praying-hands"></i>
@@ -1121,6 +1035,18 @@
                     <i class="fas fa-paper-plane"></i> Enviar Intenção
                 </button>
             </form>
+        </div>
+
+        <!-- Loja Section -->
+        <div class="store-section">
+            <h3><i class="fas fa-store"></i> Visite Nossa Loja</h3>
+            <p>Confira nossos produtos religiosos exclusivos e apoie nosso movimento adquirindo itens de qualidade para sua vida espiritual.</p>
+            
+            <div class="store-link-container">
+                <a href="https://domusweb.site" class="store-link" target="_blank">
+                    <i class="fas fa-shopping-cart"></i> Acessar Loja Virtual
+                </a>
+            </div>
         </div>
 
         <!-- About Section -->
@@ -1174,27 +1100,6 @@
         </div>
     </main>
 
-    <!-- Loja Modal -->
-    <div class="modal" id="store-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Nossa Loja Virtual</h3>
-                <button class="modal-close" id="close-store">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="store-container">
-                    <iframe src="https://domusweb.site" class="store-frame" id="store-iframe"></iframe>
-                    <div class="store-controls">
-                        <input type="text" class="store-url" id="store-url" value="https://domusweb.site" readonly>
-                        <button class="store-nav-btn" id="store-back"><i class="fas fa-arrow-left"></i></button>
-                        <button class="store-nav-btn" id="store-forward"><i class="fas fa-arrow-right"></i></button>
-                        <button class="store-nav-btn" id="store-refresh"><i class="fas fa-sync-alt"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Rosary.svg/1200px-Rosary.svg.png" alt="Logo Terço dos Homens" class="footer-logo">
@@ -1218,7 +1123,7 @@
             <i class="fas fa-praying-hands"></i>
             <span>Orações</span>
         </a>
-        <a href="#" id="open-store-bottom">
+        <a href="https://domusweb.site" target="_blank">
             <i class="fas fa-store"></i>
             <span>Loja</span>
         </a>
@@ -1252,67 +1157,6 @@
                 navMenu.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
-        });
-
-        // Store Modal
-        const storeModal = document.getElementById('store-modal');
-        const openStoreBtn = document.getElementById('open-store-btn');
-        const openStoreLink = document.getElementById('open-store');
-        const openStoreBottom = document.getElementById('open-store-bottom');
-        const closeStoreBtn = document.getElementById('close-store');
-        const storeIframe = document.getElementById('store-iframe');
-        const storeUrl = document.getElementById('store-url');
-        const storeBack = document.getElementById('store-back');
-        const storeForward = document.getElementById('store-forward');
-        const storeRefresh = document.getElementById('store-refresh');
-
-        function openStoreModal() {
-            storeModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-            // Reset iframe to home page
-            storeIframe.src = 'https://domusweb.site';
-            storeUrl.value = 'https://domusweb.site';
-        }
-
-        function closeStoreModal() {
-            storeModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        openStoreBtn.addEventListener('click', openStoreModal);
-        openStoreLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            openStoreModal();
-        });
-        openStoreBottom.addEventListener('click', function(e) {
-            e.preventDefault();
-            openStoreModal();
-        });
-        closeStoreBtn.addEventListener('click', closeStoreModal);
-
-        // Store navigation controls
-        storeBack.addEventListener('click', function() {
-            storeIframe.contentWindow.history.back();
-        });
-
-        storeForward.addEventListener('click', function() {
-            storeIframe.contentWindow.history.forward();
-        });
-
-        storeRefresh.addEventListener('click', function() {
-            storeIframe.contentWindow.location.reload();
-        });
-
-        // Update URL when iframe navigates (requires same-origin or postMessage implementation)
-        // This is a simplified version - for cross-domain iframes you'd need cooperation from the iframed site
-        storeIframe.addEventListener('load', function() {
-            try {
-                // This will only work if the iframe is same-origin
-                storeUrl.value = storeIframe.contentWindow.location.href;
-            } catch (e) {
-                // Cross-origin error - can't access iframe location
-                console.log("Cannot access iframe URL due to cross-origin restrictions");
-            }
         });
 
         // Auto-changing bible passages
@@ -1374,17 +1218,10 @@
             }
         });
 
-        // Close modal when clicking outside
-        storeModal.addEventListener('click', function(e) {
-            if (e.target === storeModal) {
-                closeStoreModal();
-            }
-        });
-
         // Page animations
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
-                const elements = document.querySelectorAll('.welcome-banner, .quick-actions, .section-title, .bible-card, .prayer-card, .about-section, .external-links');
+                const elements = document.querySelectorAll('.welcome-banner, .quick-actions, .section-title, .bible-card, .prayer-card, .store-section, .about-section, .external-links');
                 elements.forEach((el, index) => {
                     setTimeout(() => {
                         el.style.opacity = '1';
